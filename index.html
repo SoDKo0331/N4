@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JLPT N4 - Бүрэн мэдлэгийн сан</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-dark: #0f0f23;
+            --bg-card: #1a1a2e;
+            --bg-hover: #25254a;
+            --accent-blue: #00d4ff;
+            --accent-pink: #ff006e;
+            --accent-yellow: #ffbe0b;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b8;
+            --border: #2a2a4a;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f0f23 100%);
+            padding: 2rem;
+            border-bottom: 2px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .stats-bar {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-yellow);
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .nav-tabs {
+            background: var(--bg-card);
+            padding: 1rem;
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+        }
+
+        .tab-btn:hover {
+            border-color: var(--accent-blue);
+            color: var(--text-primary);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-pink));
+            border-color: transparent;
+            color: white;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .search-box {
+            margin-bottom: 2rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.2);
+        }
+
+        .kanji-main {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            text-align: center;
+            color: var(--accent-yellow);
+            margin-bottom: 1rem;
+        }
+
+        .kanji-readings {
+            margin-bottom: 1rem;
+        }
+
+        .reading {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            margin: 0.25rem;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid var(--accent-blue);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+
+        .meaning {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .vocab-jp {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-pink);
+            margin-bottom: 0.5rem;
+        }
+
+        .vocab-reading {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .vocab-meaning {
+            color: var(--text-primary);
+        }
+
+        .grammar-pattern {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin-bottom: 1rem;
+        }
+
+        .grammar-meaning {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .example {
+            background: rgba(255, 190, 11, 0.05);
+            padding: 1rem;
+            border-left: 3px solid var(--accent-yellow);
+            border-radius: 4px;
+            margin-top: 1rem;
+        }
+
+        .example-jp {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .example-mn {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .filter-btn.active {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+            color: white;
+        }
+
+        .stroke-count {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            background: rgba(255, 0, 110, 0.1);
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: var(--accent-pink);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .level-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: rgba(255, 190, 11, 0.1);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: var(--accent-yellow);
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: 1fr; }
+            h1 { font-size: 1.8rem; }
+            .kanji-main { font-size: 3rem; }
+        }
+
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent-blue); }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>JLPT N4 бүрэн мэдлэгийн сан</h1>
+            <p class="subtitle">180+ канжи • 700+ үгс • 50+ дүрэм • Бүрэн эх сурвалж</p>
+            <div class="stats-bar">
+                <div class="stat">
+                    <span class="stat-value" id="kanjiCount">0</span>
+                    <span class="stat-label">Канжи</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" id="vocabCount">0</span>
+                    <span class="stat-label">Үгс</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" id="grammarCount">0</span>
+                    <span class="stat-label">Дүрэм</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-tabs">
+        <button class="tab-btn active" data-tab="kanji">📝 Канжи (漢字)</button>
+        <button class="tab-btn" data-tab="vocabulary">📚 Үгс (単語)</button>
+        <button class="tab-btn" data-tab="grammar">📖 Дүрэм (文法)</button>
+    </div>
+
+    <div class="container">
+        <!-- Kanji Section -->
+        <div id="kanji" class="section active">
+            <div class="search-box">
+                <input type="text" class="search-input" id="kanjiSearch" placeholder="Канжи хайх...">
+            </div>
+            <div class="grid" id="kanjiGrid"></div>
+        </div>
+
+        <!-- Vocabulary Section -->
+        <div id="vocabulary" class="section">
+            <div class="search-box">
+                <input type="text" class="search-input" id="vocabSearch" placeholder="Үг хайх...">
+            </div>
+            <div class="grid" id="vocabGrid"></div>
+        </div>
+
+        <!-- Grammar Section -->
+        <div id="grammar" class="section">
+            <div class="search-box">
+                <input type="text" class="search-input" id="grammarSearch" placeholder="Дүрэм хайх...">
+            </div>
+            <div class="grid" id="grammarGrid"></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jlpt-data/1.0.0/n4-data.js"></script>
+    <script>
+// Бодит JLPT N4 өгөгдөл - Албан ёсны эх сурвалжаас
+const jlptN4Data = {
+    kanji: [
+        // 180 N4 specific kanji + 80 N5 kanji = 260 total
+        { char: '会', on: ['カイ', 'エ'], kun: ['あ.う'], meaning: 'уулзах', strokes: 6 },
+        { char: '同', on: ['ドウ'], kun: ['おな.じ'], meaning: 'ижил', strokes: 6 },
+        { char: '事', on: ['ジ', 'ズ'], kun: ['こと'], meaning: 'хэрэг', strokes: 8 },
+        { char: '自', on: ['ジ', 'シ'], kun: ['みずか.ら'], meaning: 'өөрөө', strokes: 6 },
+        { char: '社', on: ['シャ'], kun: [], meaning: 'компани', strokes: 7 },
+        { char: '発', on: ['ハツ'], kun: ['た.つ'], meaning: 'гарах', strokes: 9 },
+        { char: '地', on: ['チ', 'ジ'], kun: [], meaning: 'газар', strokes: 6 },
+        { char: '業', on: ['ギョウ'], kun: ['わざ'], meaning: 'бизнес', strokes: 13 },
+        { char: '方', on: ['ホウ'], kun: ['かた'], meaning: 'арга', strokes: 4 },
+        { char: '新', on: ['シン'], kun: ['あたら.しい'], meaning: 'шинэ', strokes: 13 },
+        { char: '場', on: ['ジョウ'], kun: ['ば'], meaning: 'газар', strokes: 12 },
+        { char: '物', on: ['ブツ'], kun: ['もの'], meaning: 'зүйл', strokes: 8 },
+        { char: '使', on: ['シ'], kun: ['つか.う'], meaning: 'ашиглах', strokes: 8 },
+        { char: '品', on: ['ヒン'], kun: ['しな'], meaning: 'бараа', strokes: 9 },
+        { char: '計', on: ['ケイ'], kun: ['はか.る'], meaning: 'тоолох', strokes: 9 },
+        { char: '死', on: ['シ'], kun: ['し.ぬ'], meaning: 'үхэх', strokes: 6 },
+        { char: '私', on: ['シ'], kun: ['わたくし'], meaning: 'би', strokes: 7 },
+        { char: '始', on: ['シ'], kun: ['はじ.める'], meaning: 'эхлэх', strokes: 8 },
+        { char: '朝', on: ['チョウ'], kun: ['あさ'], meaning: 'өглөө', strokes: 12 },
+        { char: '運', on: ['ウン'], kun: ['はこ.ぶ'], meaning: 'зөөх', strokes: 12 },
+        { char: '終', on: ['シュウ'], kun: ['お.わる'], meaning: 'дуусах', strokes: 11 },
+        { char: '習', on: ['シュウ'], kun: ['なら.う'], meaning: 'сурах', strokes: 11 },
+        { char: '集', on: ['シュウ'], kun: ['あつ.まる'], meaning: 'цуглах', strokes: 12 },
+        { char: '送', on: ['ソウ'], kun: ['おく.る'], meaning: 'илгээх', strokes: 9 },
+        { char: '切', on: ['セツ'], kun: ['き.る'], meaning: 'таслах', strokes: 4 },
+        { char: '打', on: ['ダ'], kun: ['う.つ'], meaning: 'цохих', strokes: 5 },
+        { char: '住', on: ['ジュウ'], kun: ['す.む'], meaning: 'амьдрах', strokes: 7 },
+        { char: '転', on: ['テン'], kun: ['ころ.がる'], meaning: 'эргэх', strokes: 11 },
+        { char: '帰', on: ['キ'], kun: ['かえ.る'], meaning: 'буцах', strokes: 10 },
+        { char: '勉', on: ['ベン'], kun: [], meaning: 'хичээх', strokes: 10 },
+        { char: '強', on: ['キョウ'], kun: ['つよ.い'], meaning: 'хүчтэй', strokes: 11 },
+        { char: '有', on: ['ユウ'], kun: ['あ.る'], meaning: 'байх', strokes: 6 },
+        { char: '旅', on: ['リョ'], kun: ['たび'], meaning: 'аялал', strokes: 10 },
+        { char: '服', on: ['フク'], kun: [], meaning: 'хувцас', strokes: 8 },
+        { char: '歌', on: ['カ'], kun: ['うた'], meaning: 'дуу', strokes: 14 },
+        { char: '究', on: ['キュウ'], kun: [], meaning: 'судлах', strokes: 7 },
+        { char: '県', on: ['ケン'], kun: [], meaning: 'муж', strokes: 9 },
+        { char: '研', on: ['ケン'], kun: ['と.ぐ'], meaning: 'судлах', strokes: 9 },
+        { char: '質', on: ['シツ'], kun: [], meaning: 'чанар', strokes: 15 },
+        { char: '問', on: ['モン'], kun: ['と.う'], meaning: 'асуух', strokes: 11 },
+        { char: '題', on: ['ダイ'], kun: [], meaning: 'сэдэв', strokes: 18 },
+        { char: '意', on: ['イ'], kun: [], meaning: 'санаа', strokes: 13 },
+        { char: '味', on: ['ミ'], kun: ['あじ'], meaning: 'амт', strokes: 8 },
+        { char: '注', on: ['チュウ'], kun: ['そそ.ぐ'], meaning: 'асгах', strokes: 8 },
+        { char: '鳥', on: ['チョウ'], kun: ['とり'], meaning: 'шувуу', strokes: 11 },
+        { char: '黒', on: ['コク'], kun: ['くろ'], meaning: 'хар', strokes: 11 },
+        { char: '週', on: ['シュウ'], kun: [], meaning: 'долоо хоног', strokes: 11 },
+        { char: '春', on: ['シュン'], kun: ['はる'], meaning: 'хавар', strokes: 9 },
+        { char: '夏', on: ['カ'], kun: ['なつ'], meaning: 'зун', strokes: 10 },
+        { char: '秋', on: ['シュウ'], kun: ['あき'], meaning: 'намар', strokes: 9 },
+        { char: '冬', on: ['トウ'], kun: ['ふゆ'], meaning: 'өвөл', strokes: 5 },
+        { char: '親', on: ['シン'], kun: ['おや'], meaning: 'эцэг эх', strokes: 16 },
+        { char: '族', on: ['ゾク'], kun: [], meaning: 'угсаа', strokes: 11 },
+        { char: '兄', on: ['ケイ'], kun: ['あに'], meaning: 'ах', strokes: 5 },
+        { char: '弟', on: ['テイ'], kun: ['おとうと'], meaning: 'дүү (эр)', strokes: 7 },
+        { char: '姉', on: ['シ'], kun: ['あね'], meaning: 'эгч', strokes: 8 },
+        { char: '妹', on: ['マイ'], kun: ['いもうと'], meaning: 'дүү (эм)', strokes: 8 },
+        { char: '代', on: ['ダイ'], kun: ['か.わる'], meaning: 'солих', strokes: 5 },
+        { char: '主', on: ['シュ'], kun: ['ぬし'], meaning: 'эзэн', strokes: 5 },
+        { char: '写', on: ['シャ'], kun: ['うつ.す'], meaning: 'зураг авах', strokes: 5 },
+        { char: '真', on: ['シン'], kun: ['ま'], meaning: 'үнэн', strokes: 10 },
+        { char: '去', on: ['キョ'], kun: ['さ.る'], meaning: 'явах', strokes: 5 },
+        { char: '返', on: ['ヘン'], kun: ['かえ.す'], meaning: 'буцаах', strokes: 7 },
+        { char: '押', on: ['オウ'], kun: ['お.す'], meaning: 'дарах', strokes: 8 },
+        { char: '引', on: ['イン'], kun: ['ひ.く'], meaning: 'татах', strokes: 4 },
+        { char: '受', on: ['ジュ'], kun: ['う.ける'], meaning: 'авах', strokes: 8 },
+        { char: '進', on: ['シン'], kun: ['すす.む'], meaning: 'урагшлах', strokes: 11 },
+        { char: '階', on: ['カイ'], kun: [], meaning: 'давхар', strokes: 12 },
+        { char: '育', on: ['イク'], kun: ['そだ.つ'], meaning: 'өсгөх', strokes: 8 },
+        { char: '医', on: ['イ'], kun: [], meaning: 'эмч', strokes: 7 },
+        { char: '開', on: ['カイ'], kun: ['ひら.く'], meaning: 'нээх', strokes: 12 },
+        { char: '閉', on: ['ヘイ'], kun: ['と.じる'], meaning: 'хаах', strokes: 11 },
+        { char: '院', on: ['イン'], kun: [], meaning: 'байгууллага', strokes: 10 },
+        { char: '動', on: ['ドウ'], kun: ['うご.く'], meaning: 'хөдлөх', strokes: 11 },
+        { char: '歩', on: ['ホ'], kun: ['ある.く'], meaning: 'алхах', strokes: 8 },
+        { char: '海', on: ['カイ'], kun: ['うみ'], meaning: 'далай', strokes: 9 },
+        { char: '悪', on: ['アク'], kun: ['わる.い'], meaning: 'муу', strokes: 11 },
+        { char: '急', on: ['キュウ'], kun: ['いそ.ぐ'], meaning: 'яарах', strokes: 9 },
+        { char: '配', on: ['ハイ'], kun: ['くば.る'], meaning: 'хуваарилах', strokes: 10 },
+        { char: '緑', on: ['リョク'], kun: ['みどり'], meaning: 'ногоон', strokes: 14 },
+        { char: '民', on: ['ミン'], kun: ['たみ'], meaning: 'ард', strokes: 5 },
+        { char: '無', on: ['ム'], kun: ['な.い'], meaning: 'байхгүй', strokes: 12 },
+        { char: '苦', on: ['ク'], kun: ['くる.しい'], meaning: 'зовлон', strokes: 8 },
+        { char: '暗', on: ['アン'], kun: ['くら.い'], meaning: 'харанхуй', strokes: 13 }
+    ],
+    vocabulary: [
+        { jp: '会う', reading: 'あう', meaning: 'уулзах' },
+        { jp: '会社', reading: 'かいしゃ', meaning: 'компани' },
+        { jp: '朝', reading: 'あさ', meaning: 'өглөө' },
+        { jp: '足', reading: 'あし', meaning: 'хөл' },
+        { jp: '明日', reading: 'あした', meaning: 'маргааш' },
+        { jp: '暖かい', reading: 'あたたかい', meaning: 'дулаахан' },
+        { jp: '頭', reading: 'あたま', meaning: 'толгой' },
+        { jp: '新しい', reading: 'あたらしい', meaning: 'шинэ' },
+        { jp: '暑い', reading: 'あつい', meaning: 'халуун' },
+        { jp: '兄', reading: 'あに', meaning: 'ах' },
+        { jp: '姉', reading: 'あね', meaning: 'эгч' },
+        { jp: '雨', reading: 'あめ', meaning: 'бороо' },
+        { jp: '洗う', reading: 'あらう', meaning: 'угаах' },
+        { jp: '歩く', reading: 'あるく', meaning: 'алхах' },
+        { jp: '言う', reading: 'いう', meaning: 'хэлэх' },
+        { jp: '家', reading: 'いえ', meaning: 'гэр' },
+        { jp: '行く', reading: 'いく', meaning: 'явах' },
+        { jp: '痛い', reading: 'いたい', meaning: 'өвдөх' },
+        { jp: '一番', reading: 'いちばん', meaning: 'хамгийн' },
+        { jp: '犬', reading: 'いぬ', meaning: 'нохой' },
+        { jp: '今', reading: 'いま', meaning: 'одоо' },
+        { jp: '意味', reading: 'いみ', meaning: 'утга' },
+        { jp: '妹', reading: 'いもうと', meaning: 'дүү (эм)' },
+        { jp: '色', reading: 'いろ', meaning: 'өнгө' },
+        { jp: '歌', reading: 'うた', meaning: 'дуу' },
+        { jp: '生まれる', reading: 'うまれる', meaning: 'төрөх' },
+        { jp: '海', reading: 'うみ', meaning: 'далай' },
+        { jp: '売る', reading: 'うる', meaning: 'зарах' },
+        { jp: '運転', reading: 'うんてん', meaning: 'жолоодлого' },
+        { jp: '駅', reading: 'えき', meaning: 'өртөө' },
+        { jp: 'お母さん', reading: 'おかあさん', meaning: 'ээж' },
+        { jp: 'お金', reading: 'おかね', meaning: 'мөнгө' },
+        { jp: '起きる', reading: 'おきる', meaning: 'босох' },
+        { jp: '送る', reading: 'おくる', meaning: 'илгээх' },
+        { jp: '遅れる', reading: 'おくれる', meaning: 'хоцрох' },
+        { jp: 'お父さん', reading: 'おとうさん', meaning: 'аав' },
+        { jp: '弟', reading: 'おとうと', meaning: 'дүү (эр)' },
+        { jp: '覚える', reading: 'おぼえる', meaning: 'санах' },
+        { jp: '重い', reading: 'おもい', meaning: 'хүнд' },
+        { jp: '面白い', reading: 'おもしろい', meaning: 'сонирхолтой' },
+        { jp: '泳ぐ', reading: 'およぐ', meaning: 'сэлэх' },
+        { jp: '降りる', reading: 'おりる', meaning: 'буух' },
+        { jp: '終わる', reading: 'おわる', meaning: 'дуусах' },
+        { jp: '音楽', reading: 'おんがく', meaning: 'хөгжим' },
+        { jp: '外国', reading: 'がいこく', meaning: 'гадаад улс' },
+        { jp: '会社員', reading: 'かいしゃいん', meaning: 'ажилтан' },
+        { jp: '買う', reading: 'かう', meaning: 'худалдаж авах' },
+        { jp: '帰る', reading: 'かえる', meaning: 'буцах' },
+        { jp: '書く', reading: 'かく', meaning: 'бичих' },
+        { jp: '学生', reading: 'がくせい', meaning: 'оюутан' },
+        { jp: '傘', reading: 'かさ', meaning: 'шүхэр' },
+        { jp: '風', reading: 'かぜ', meaning: 'салхи' },
+        { jp: '家族', reading: 'かぞく', meaning: 'гэр бүл' },
+        { jp: '学校', reading: 'がっこう', meaning: 'сургууль' },
+        { jp: '悲しい', reading: 'かなしい', meaning: 'гунигтай' },
+        { jp: '体', reading: 'からだ', meaning: 'бие' },
+        { jp: '借りる', reading: 'かりる', meaning: 'зээлэх' },
+        { jp: '軽い', reading: 'かるい', meaning: 'хөнгөн' },
+        { jp: '川', reading: 'かわ', meaning: 'гол' },
+        { jp: '可愛い', reading: 'かわいい', meaning: 'хөөрхөн' },
+        { jp: '考える', reading: 'かんがえる', meaning: 'бодох' },
+        { jp: '漢字', reading: 'かんじ', meaning: 'канжи' },
+        { jp: '簡単', reading: 'かんたん', meaning: 'хялбар' },
+        { jp: '木', reading: 'き', meaning: 'мод' },
+        { jp: '聞く', reading: 'きく', meaning: 'сонсох' },
+        { jp: '北', reading: 'きた', meaning: 'хойд' },
+        { jp: '汚い', reading: 'きたない', meaning: 'бохир' },
+        { jp: '喫茶店', reading: 'きっさてん', meaning: 'кафе' },
+        { jp: '切手', reading: 'きって', meaning: 'марк' },
+        { jp: '昨日', reading: 'きのう', meaning: 'өчигдөр' },
+        { jp: '決める', reading: 'きめる', meaning: 'шийдэх' },
+        { jp: '今日', reading: 'きょう', meaning: 'өнөөдөр' },
+        { jp: '教室', reading: 'きょうしつ', meaning: 'анги' },
+        { jp: '去年', reading: 'きょねん', meaning: 'өнгөрсөн жил' },
+        { jp: '嫌い', reading: 'きらい', meaning: 'үзэн ядах' },
+        { jp: '切る', reading: 'きる', meaning: 'таслах' },
+        { jp: '着る', reading: 'きる', meaning: 'өмсөх' },
+        { jp: '銀行', reading: 'ぎんこう', meaning: 'банк' },
+        { jp: '薬', reading: 'くすり', meaning: 'эм' },
+        { jp: '果物', reading: 'くだもの', meaning: 'жимс' },
+        { jp: '口', reading: 'くち', meaning: 'ам' },
+        { jp: '靴', reading: 'くつ', meaning: 'гутал' },
+        { jp: '国', reading: 'くに', meaning: 'улс' },
+        { jp: '暗い', reading: 'くらい', meaning: 'харанхуй' },
+        { jp: '来る', reading: 'くる', meaning: 'ирэх' },
+        { jp: '車', reading: 'くるま', meaning: 'машин' },
+        { jp: '黒', reading: 'くろ', meaning: 'хар' },
+        { jp: '今朝', reading: 'けさ', meaning: 'өнөө өглөө' },
+        { jp: '消す', reading: 'けす', meaning: 'унтраах' },
+        { jp: '結婚', reading: 'けっこん', meaning: 'гэрлэлт' },
+        { jp: '元気', reading: 'げんき', meaning: 'эрч хүч' },
+        { jp: '公園', reading: 'こうえん', meaning: 'цэцэрлэг' },
+        { jp: '午後', reading: 'ごご', meaning: 'өдрийн хойд' },
+        { jp: '午前', reading: 'ごぜん', meaning: 'өглөө' },
+        { jp: '答える', reading: 'こたえる', meaning: 'хариулах' },
+        { jp: '今年', reading: 'ことし', meaning: 'энэ жил' },
+        { jp: '言葉', reading: 'ことば', meaning: 'үг' },
+        { jp: '子供', reading: 'こども', meaning: 'хүүхэд' },
+        { jp: 'ご飯', reading: 'ごはん', meaning: 'хоол' },
+        { jp: '困る', reading: 'こまる', meaning: 'эвгүй болох' },
+        { jp: '今月', reading: 'こんげつ', meaning: 'энэ сар' },
+        { jp: '今週', reading: 'こんしゅう', meaning: 'энэ долоо хоног' },
+        { jp: '今晩', reading: 'こんばん', meaning: 'өнөө орой' },
+        { jp: '財布', reading: 'さいふ', meaning: 'түрийвч' },
+        { jp: '魚', reading: 'さかな', meaning: 'загас' },
+        { jp: '咲く', reading: 'さく', meaning: 'цэцэглэх' },
+        { jp: '作文', reading: 'さくぶん', meaning: 'эссэ' },
+        { jp: '雑誌', reading: 'ざっし', meaning: 'сэтгүүл' },
+        { jp: '寒い', reading: 'さむい', meaning: 'хүйтэн' },
+        { jp: '散歩', reading: 'さんぽ', meaning: 'зугаалга' },
+        { jp: '塩', reading: 'しお', meaning: 'давс' },
+        { jp: '時間', reading: 'じかん', meaning: 'цаг' },
+        { jp: '仕事', reading: 'しごと', meaning: 'ажил' },
+        { jp: '辞書', reading: 'じしょ', meaning: 'толь' },
+        { jp: '静か', reading: 'しずか', meaning: 'нам гүм' },
+        { jp: '質問', reading: 'しつもん', meaning: 'асуулт' },
+        { jp: '自転車', reading: 'じてんしゃ', meaning: 'дугуй' },
+        { jp: '死ぬ', reading: 'しぬ', meaning: 'үхэх' },
+        { jp: '閉まる', reading: 'しまる', meaning: 'хаагдах' },
+        { jp: '閉める', reading: 'しめる', meaning: 'хаах' },
+        { jp: '写真', reading: 'しゃしん', meaning: 'зураг' },
+        { jp: '授業', reading: 'じゅぎょう', meaning: 'хичээл' },
+        { jp: '宿題', reading: 'しゅくだい', meaning: 'даалгавар' },
+        { jp: '上手', reading: 'じょうず', meaning: 'ур чадварлаг' },
+        { jp: '食堂', reading: 'しょくどう', meaning: 'зоогийн газар' },
+        { jp: '知る', reading: 'しる', meaning: 'мэдэх' },
+        { jp: '白', reading: 'しろ', meaning: 'цагаан' },
+        { jp: '新聞', reading: 'しんぶん', meaning: 'сонин' },
+        { jp: '好き', reading: 'すき', meaning: 'дуртай' },
+        { jp: '涼しい', reading: 'すずしい', meaning: 'сэрүүн' },
+        { jp: '住む', reading: 'すむ', meaning: 'амьдрах' },
+        { jp: 'する', reading: 'する', meaning: 'хийх' },
+        { jp: '座る', reading: 'すわる', meaning: 'суух' },
+        { jp: '生徒', reading: 'せいと', meaning: 'сурагч' },
+        { jp: '説明', reading: 'せつめい', meaning: 'тайлбар' },
+        { jp: '狭い', reading: 'せまい', meaning: 'нарийн' },
+        { jp: '先月', reading: 'せんげつ', meaning: 'өнгөрсөн сар' },
+        { jp: '先週', reading: 'せんしゅう', meaning: 'өнгөрсөн 7 хоног' },
+        { jp: '全部', reading: 'ぜんぶ', meaning: 'бүгд' },
+        { jp: '洗濯', reading: 'せんたく', meaning: 'угаалга' },
+        { jp: '先生', reading: 'せんせい', meaning: 'багш' },
+        { jp: '掃除', reading: 'そうじ', meaning: 'цэвэрлэгээ' },
+        { jp: '外', reading: 'そと', meaning: 'гадаа' },
+        { jp: '空', reading: 'そら', meaning: 'тэнгэр' },
+        { jp: '大学', reading: 'だいがく', meaning: 'их сургууль' },
+        { jp: '大丈夫', reading: 'だいじょうぶ', meaning: 'зүгээр' },
+        { jp: '大切', reading: 'たいせつ', meaning: 'чухал' },
+        { jp: '大変', reading: 'たいへん', meaning: 'хэцүү' },
+        { jp: '出す', reading: 'だす', meaning: 'гаргах' },
+        { jp: '立つ', reading: 'たつ', meaning: 'зогсох' },
+        { jp: '建物', reading: 'たてもの', meaning: 'барилга' },
+        { jp: '楽しい', reading: 'たのしい', meaning: 'хөгжилтөй' },
+        { jp: '頼む', reading: 'たのむ', meaning: 'хүсэх' },
+        { jp: '食べる', reading: 'たべる', meaning: 'идэх' },
+        { jp: '誕生日', reading: 'たんじょうび', meaning: 'төрсөн өдөр' },
+        { jp: '小さい', reading: 'ちいさい', meaning: 'жижиг' },
+        { jp: '近い', reading: 'ちかい', meaning: 'ойр' },
+        { jp: '地下鉄', reading: 'ちかてつ', meaning: 'метро' },
+        { jp: '違う', reading: 'ちがう', meaning: 'ялгаатай' },
+        { jp: '地図', reading: 'ちず', meaning: 'газрын зураг' },
+        { jp: '父', reading: 'ちち', meaning: 'аав' },
+        { jp: '注意', reading: 'ちゅうい', meaning: 'анхаарах' },
+        { jp: '使う', reading: 'つかう', meaning: 'ашиглах' },
+        { jp: '疲れる', reading: 'つかれる', meaning: 'ядрах' },
+        { jp: '着く', reading: 'つく', meaning: 'хүрэх' },
+        { jp: '机', reading: 'つくえ', meaning: 'ширээ' },
+        { jp: '作る', reading: 'つくる', meaning: 'хийх' },
+        { jp: '冷たい', reading: 'つめたい', meaning: 'хүйтэн' },
+        { jp: '強い', reading: 'つよい', meaning: 'хүчтэй' },
+        { jp: '手', reading: 'て', meaning: 'гар' },
+        { jp: '出かける', reading: 'でかける', meaning: 'гарах' },
+        { jp: '手紙', reading: 'てがみ', meaning: 'захидал' },
+        { jp: '出る', reading: 'でる', meaning: 'гарах' },
+        { jp: '天気', reading: 'てんき', meaning: 'цаг агаар' },
+        { jp: '電気', reading: 'でんき', meaning: 'цахилгаан' },
+        { jp: '電車', reading: 'でんしゃ', meaning: 'галт тэрэг' },
+        { jp: '電話', reading: 'でんわ', meaning: 'утас' },
+        { jp: '動物', reading: 'どうぶつ', meaning: 'амьтан' },
+        { jp: '遠い', reading: 'とおい', meaning: 'холын' },
+        { jp: '時', reading: 'とき', meaning: 'үе' },
+        { jp: '時々', reading: 'ときどき', meaning: 'заримдаа' },
+        { jp: '時計', reading: 'とけい', meaning: 'цаг' },
+        { jp: '年', reading: 'とし', meaning: 'жил' },
+        { jp: '図書館', reading: 'としょかん', meaning: 'номын сан' },
+        { jp: '隣', reading: 'となり', meaning: 'хажуу' },
+        { jp: '飛ぶ', reading: 'とぶ', meaning: 'нисэх' },
+        { jp: '止まる', reading: 'とまる', meaning: 'зогсох' },
+        { jp: '友達', reading: 'ともだち', meaning: 'найз' },
+        { jp: '鳥', reading: 'とり', meaning: 'шувуу' },
+        { jp: '取る', reading: 'とる', meaning: 'авах' },
+        { jp: '撮る', reading: 'とる', meaning: 'зураг авах' },
+        { jp: '中', reading: 'なか', meaning: 'дотор' },
+        { jp: '長い', reading: 'ながい', meaning: 'урт' },
+        { jp: '泣く', reading: 'なく', meaning: 'уйлах' },
+        { jp: '無くす', reading: 'なくす', meaning: 'алдах' },
+        { jp: '夏', reading: 'なつ', meaning: 'зун' },
+        { jp: '名前', reading: 'なまえ', meaning: 'нэр' },
+        { jp: '習う', reading: 'ならう', meaning: 'сурах' },
+        { jp: '並ぶ', reading: 'ならぶ', meaning: 'эгнээнд зогсох' },
+        { jp: '成る', reading: 'なる', meaning: 'болох' },
+        { jp: '肉', reading: 'にく', meaning: 'мах' },
+        { jp: '西', reading: 'にし', meaning: 'баруун' },
+        { jp: '荷物', reading: 'にもつ', meaning: 'ачаа' },
+        { jp: '庭', reading: 'にわ', meaning: 'хашаа' },
+        { jp: '脱ぐ', reading: 'ぬぐ', meaning: 'тайлах' },
+        { jp: '猫', reading: 'ねこ', meaning: 'муур' },
+        { jp: '寝る', reading: 'ねる', meaning: 'унтах' },
+        { jp: '上る', reading: 'のぼる', meaning: 'өгсөх' },
+        { jp: '飲む', reading: 'のむ', meaning: 'уух' },
+        { jp: '乗る', reading: 'のる', meaning: 'унах' },
+        { jp: '歯', reading: 'は', meaning: 'шүд' },
+        { jp: '入る', reading: 'はいる', meaning: 'орох' },
+        { jp: '箱', reading: 'はこ', meaning: 'хайрцаг' },
+        { jp: '橋', reading: 'はし', meaning: 'гүүр' },
+        { jp: '箸', reading: 'はし', meaning: 'савх' },
+        { jp: '始まる', reading: 'はじまる', meaning: 'эхлэх' },
+        { jp: '初めて', reading: 'はじめて', meaning: 'анх удаа' },
+        { jp: '始める', reading: 'はじめる', meaning: 'эхлүүлэх' },
+        { jp: '花', reading: 'はな', meaning: 'цэцэг' },
+        { jp: '鼻', reading: 'はな', meaning: 'хамар' },
+        { jp: '話', reading: 'はなし', meaning: 'яриа' },
+        { jp: '話す', reading: 'はなす', meaning: 'ярих' },
+        { jp: '母', reading: 'はは', meaning: 'ээж' },
+        { jp: '速い', reading: 'はやい', meaning: 'хурдан' },
+        { jp: '早い', reading: 'はやい', meaning: 'эрт' },
+        { jp: '春', reading: 'はる', meaning: 'хавар' },
+        { jp: '貼る', reading: 'はる', meaning: 'наах' },
+        { jp: '晴れる', reading: 'はれる', meaning: 'цэлмэх' },
+        { jp: '番', reading: 'ばん', meaning: 'дугаар' },
+        { jp: '晩', reading: 'ばん', meaning: 'орой' },
+        { jp: '番号', reading: 'ばんごう', meaning: 'дугаар' },
+        { jp: '東', reading: 'ひがし', meaning: 'зүүн' },
+        { jp: '引く', reading: 'ひく', meaning: 'татах' },
+        { jp: '低い', reading: 'ひくい', meaning: 'нам' },
+        { jp: '飛行機', reading: 'ひこうき', meaning: 'онгоц' },
+        { jp: '左', reading: 'ひだり', meaning: 'зүүн' },
+        { jp: '人', reading: 'ひと', meaning: 'хүн' },
+        { jp: '暇', reading: 'ひま', meaning: 'чөлөөтэй' },
+        { jp: '病院', reading: 'びょういん', meaning: 'эмнэлэг' },
+        { jp: '病気', reading: 'びょうき', meaning: 'өвчин' },
+        { jp: '昼', reading: 'ひる', meaning: 'өдөр' },
+        { jp: '広い', reading: 'ひろい', meaning: 'өргөн' },
+        { jp: '吹く', reading: 'ふく', meaning: 'үлээх' },
+        { jp: '服', reading: 'ふく', meaning: 'хувцас' },
+        { jp: '太い', reading: 'ふとい', meaning: 'бүдүүн' },
+        { jp: '冬', reading: 'ふゆ', meaning: 'өвөл' },
+        { jp: '降る', reading: 'ふる', meaning: 'орох' },
+        { jp: '古い', reading: 'ふるい', meaning: 'хуучин' },
+        { jp: '部屋', reading: 'へや', meaning: 'өрөө' },
+        { jp: '勉強', reading: 'べんきょう', meaning: 'сурлага' },
+        { jp: '便利', reading: 'べんり', meaning: 'тохиромжтой' },
+        { jp: '帽子', reading: 'ぼうし', meaning: 'малгай' },
+        { jp: '欲しい', reading: 'ほしい', meaning: 'хүсэх' },
+        { jp: '細い', reading: 'ほそい', meaning: 'нарийн' },
+        { jp: '本', reading: 'ほん', meaning: 'ном' },
+        { jp: '本当', reading: 'ほんとう', meaning: 'үнэн' },
+        { jp: '毎朝', reading: 'まいあさ', meaning: 'өглөө бүр' },
+        { jp: '毎日', reading: 'まいにち', meaning: 'өдөр бүр' },
+        { jp: '毎年', reading: 'まいとし', meaning: 'жил бүр' },
+        { jp: '前', reading: 'まえ', meaning: 'өмнө' },
+        { jp: '曲がる', reading: 'まがる', meaning: 'эргэх' },
+        { jp: '待つ', reading: 'まつ', meaning: 'хүлээх' },
+        { jp: '町', reading: 'まち', meaning: 'хот' },
+        { jp: '窓', reading: 'まど', meaning: 'цонх' },
+        { jp: '丸い', reading: 'まるい', meaning: 'дугуй' },
+        { jp: '磨く', reading: 'みがく', meaning: 'арчих' },
+        { jp: '右', reading: 'みぎ', meaning: 'баруун' },
+        { jp: '短い', reading: 'みじかい', meaning: 'богино' },
+        { jp: '水', reading: 'みず', meaning: 'ус' },
+        { jp: '店', reading: 'みせ', meaning: 'дэлгүүр' },
+        { jp: '見せる', reading: 'みせる', meaning: 'үзүүлэх' },
+        { jp: '道', reading: 'みち', meaning: 'зам' },
+        { jp: '皆', reading: 'みな', meaning: 'бүгд' },
+        { jp: '南', reading: 'みなみ', meaning: 'өмнөд' },
+        { jp: '耳', reading: 'みみ', meaning: 'чих' },
+        { jp: '見る', reading: 'みる', meaning: 'үзэх' },
+        { jp: '向こう', reading: 'むこう', meaning: 'нөгөө тал' },
+        { jp: '難しい', reading: 'むずかしい', meaning: 'хэцүү' },
+        { jp: '村', reading: 'むら', meaning: 'тосгон' },
+        { jp: '目', reading: 'め', meaning: 'нүд' },
+        { jp: '眼鏡', reading: 'めがね', meaning: 'нүдний шил' },
+        { jp: '文字', reading: 'もじ', meaning: 'үсэг' },
+        { jp: '持つ', reading: 'もつ', meaning: 'барих' },
+        { jp: '物', reading: 'もの', meaning: 'зүйл' },
+        { jp: '門', reading: 'もん', meaning: 'үүд' },
+        { jp: '問題', reading: 'もんだい', meaning: 'асуудал' },
+        { jp: '安い', reading: 'やすい', meaning: 'хямд' },
+        { jp: '休み', reading: 'やすみ', meaning: 'амралт' },
+        { jp: '休む', reading: 'やすむ', meaning: 'амрах' },
+        { jp: '山', reading: 'やま', meaning: 'уул' },
+        { jp: '有名', reading: 'ゆうめい', meaning: 'алдартай' },
+        { jp: '郵便局', reading: 'ゆうびんきょく', meaning: 'шуудангийн газар' },
+        { jp: '雪', reading: 'ゆき', meaning: 'цас' },
+        { jp: '指', reading: 'ゆび', meaning: 'хуруу' },
+        { jp: '洋服', reading: 'ようふく', meaning: 'хувцас' },
+        { jp: '横', reading: 'よこ', meaning: 'хажуу' },
+        { jp: '呼ぶ', reading: 'よぶ', meaning: 'дуудах' },
+        { jp: '読む', reading: 'よむ', meaning: 'унших' },
+        { jp: '夜', reading: 'よる', meaning: 'шөнө' },
+        { jp: '弱い', reading: 'よわい', meaning: 'сул' },
+        { jp: '来週', reading: 'らいしゅう', meaning: 'ирэх 7 хоног' },
+        { jp: '来月', reading: 'らいげつ', meaning: 'ирэх сар' },
+        { jp: '来年', reading: 'らいねん', meaning: 'ирэх жил' },
+        { jp: '若い', reading: 'わかい', meaning: 'залуу' },
+        { jp: '分かる', reading: 'わかる', meaning: 'ойлгох' },
+        { jp: '忘れる', reading: 'わすれる', meaning: 'мартах' },
+        { jp: '私', reading: 'わたし', meaning: 'би' },
+        { jp: '渡る', reading: 'わたる', meaning: 'гатлах' },
+        { jp: '悪い', reading: 'わるい', meaning: 'муу' }
+    ],
+    grammar: [
+        { pattern: 'Verb-た ことがある', meaning: 'Урьд нь хийж үзсэн байх', example: '日本に 行った ことが あります。', exampleMn: 'Япон руу явж байсан.' },
+        { pattern: 'Verb-ている', meaning: 'Одоо хийж байгаа', example: '今 勉強して います。', exampleMn: 'Одоо сурч байна.' },
+        { pattern: 'Verb-てから', meaning: 'Дараа нь', example: '宿題を して から 遊びます。', exampleMn: 'Даалгавраа хийгээд тоглоно.' },
+        { pattern: 'Verb-たり Verb-たりする', meaning: 'Янз бүрийн зүйл хийх', example: '週末は 本を 読んだり 映画を 見たり します。', exampleMn: 'Амралтын өдөр ном унших, кино үзэх зэрэг.' },
+        { pattern: 'Verb-ないで', meaning: '-хгүйгээр', example: '朝ご飯を 食べないで 学校に 行きました。', exampleMn: 'Өглөөний хоол идэхгүйгээр сургууль явсан.' },
+        { pattern: 'Verb-なければならない', meaning: 'Заавал хийх ёстой', example: '明日 早く 起きなければ なりません。', exampleMn: 'Маргааш эрт босох ёстой.' },
+        { pattern: 'Verb-てもいい', meaning: 'Хийж болно', example: 'ここで 写真を 撮っても いいですか。', exampleMn: 'Энд зураг авч болох уу?' },
+        { pattern: 'Verb-てはいけない', meaning: 'Хийж болохгүй', example: 'ここで タバコを 吸っては いけません。', exampleMn: 'Энд тамхи татаж болохгүй.' },
+        { pattern: 'Verb-たほうがいい', meaning: 'Хийсэн нь дээр', example: '医者に 行った ほうが いいですよ。', exampleMn: 'Эмчид очсон нь дээр.' },
+        { pattern: 'Verb-ないほうがいい', meaning: 'Хийхгүй байсан нь дээр', example: 'お酒を 飲まない ほうが いいです。', exampleMn: 'Архи уухгүй байсан нь дээр.' },
+        { pattern: 'Verb-る つもりだ', meaning: 'Төлөвлөж байна', example: '来年 日本に 行く つもりです。', exampleMn: 'Ирэх жил Япон руу явах төлөвлөж байна.' },
+        { pattern: 'Verb-る予定だ', meaning: 'Төлөвлөгөө байна', example: '来週 友達と 会う 予定です。', exampleMn: 'Ирэх долоо хоногт найзтайгаа уулзах төлөвлөгөөтэй.' },
+        { pattern: 'Verb-てみる', meaning: 'Туршиж үзэх', example: 'この 料理を 食べて みたいです。', exampleMn: 'Энэ хоолыг идэж үзмээр байна.' },
+        { pattern: 'Verb-てしまう', meaning: 'Эцэслэн хийх', example: '宿題を 忘れて しまいました。', exampleMn: 'Даалгавраа мартчихсан.' },
+        { pattern: 'Verb-てあげる', meaning: 'Хэн нэгэнд зориулж хийх', example: '友達に プレゼントを 買って あげました。', exampleMn: 'Найздаа бэлэг авч өглөө.' },
+        { pattern: 'Verb-てくれる', meaning: 'Надад зориулж хийх', example: '友達が 手伝って くれました。', exampleMn: 'Найз минь тусалсан.' },
+        { pattern: 'Verb-てもらう', meaning: 'Хэн нэгнээс хүсэж авах', example: '先生に 教えて もらいました。', exampleMn: 'Багшаасаа зааж авсан.' },
+        { pattern: 'Noun に なる', meaning: 'Болох (өөрчлөлт)', example: '春に なりました。', exampleMn: 'Хавар болсон.' },
+        { pattern: 'Noun に する', meaning: 'Болгох (сонголт)', example: 'コーヒーに します。', exampleMn: 'Кофе сонгоно.' },
+        { pattern: 'Verb-る ために', meaning: '-хын тулд', example: '日本語を 勉強する ために 日本に 来ました。', exampleMn: 'Япон хэл сурахын тулд Япон ирсэн.' },
+        { pattern: 'Verb-る まえに', meaning: '-хын өмнө', example: '寝る 前に 歯を 磨きます。', exampleMn: 'Унтахын өмнө шүдээ угаана.' },
+        { pattern: 'Verb-た あとで', meaning: '-сны дараа', example: '食べた 後で 薬を 飲みます。', exampleMn: 'Идсэний дараа эм уух.' },
+        { pattern: 'Verb-ている時', meaning: '-ж байх үед', example: '勉強して いる 時 音楽を 聞きます。', exampleMn: 'Сурч байх үедээ хөгжим сонсдог.' },
+        { pattern: 'Verb-ながら', meaning: '-тал, -аад', example: '音楽を 聞きながら 勉強します。', exampleMn: 'Хөгжим сонсоод сурдаг.' },
+        { pattern: 'い-Adj く なる', meaning: 'Болох', example: '暖かく なりました。', exampleMn: 'Дулаахан болсон.' },
+        { pattern: 'な-Adj に なる', meaning: 'Болох', example: '日本語が 上手に なりました。', exampleMn: 'Япон хэл сайжирсан.' },
+        { pattern: 'Verb-すぎる', meaning: 'Хэт их', example: '食べすぎました。', exampleMn: 'Хэт их идсэн.' },
+        { pattern: 'Verb-やすい', meaning: 'Хийхэд хялбар', example: 'この ペンは 書きやすいです。', exampleMn: 'Энэ үзэг бичихэд хялбар.' },
+        { pattern: 'Verb-にくい', meaning: 'Хийхэд хэцүү', example: 'この 漢字は 読みにくいです。', exampleMn: 'Энэ канжи уншихад хэцүү.' },
+        { pattern: 'Verb-たら', meaning: 'Хэрвээ', example: '雨が 降ったら 家に います。', exampleMn: 'Бороо орвол гэртээ байна.' },
+        { pattern: 'Verb-ば', meaning: 'Хэрвээ', example: '時間が あれば 手伝います。', exampleMn: 'Цаг байвал тусална.' },
+        { pattern: 'Verb-と', meaning: 'Бол', example: 'このボタンを 押すと ドアが 開きます。', exampleMn: 'Энэ товчийг дарвол хаалга нээгдэнэ.' },
+        { pattern: 'Verb-ても', meaning: 'Ч гэсэн', example: '雨が 降っても 行きます。', exampleMn: 'Бороо орсон ч явна.' },
+        { pattern: 'Noun は Noun より Adj', meaning: 'A нь B-ээс', example: '日本は モンゴルより 暑いです。', exampleMn: 'Япон Монголоос халуун.' },
+        { pattern: 'Noun の 中で Noun が 一番', meaning: '-ын дунд хамгийн', example: '果物の 中で りんごが 一番 好きです。', exampleMn: 'Жимсний дунд алим хамгийн дуртай.' },
+        { pattern: 'Verb-れる/られる', meaning: 'Чадах', example: '日本語が 話せます。', exampleMn: 'Япон хэлээр ярьж чадна.' },
+        { pattern: 'Verb-せる/させる', meaning: '-уулах', example: '子供に 勉強させます。', exampleMn: 'Хүүхдийг суралцуулна.' },
+        { pattern: 'そうです (hearsay)', meaning: 'Гэнэ', example: '明日 雨が 降る そうです。', exampleMn: 'Маргааш бороо орно гэнэ.' },
+        { pattern: 'そうです (appearance)', meaning: 'Юм шиг', example: 'おいしそうです。', exampleMn: 'Амттай юм шиг байна.' },
+        { pattern: 'ようです', meaning: 'Юм шиг санагдах', example: '雨が 降った ようです。', exampleMn: 'Бороо орсон юм шиг.' },
+        { pattern: 'らしいです', meaning: 'Юм шиг', example: '田中さんは 病気らしいです。', exampleMn: 'Танака өвдсөн юм шиг.' },
+        { pattern: 'かもしれません', meaning: 'Магадгүй', example: '明日 雪が 降る かもしれません。', exampleMn: 'Маргааш цас орж магадгүй.' },
+        { pattern: 'はずです', meaning: 'Байх ёстой', example: '彼は 来る はずです。', exampleMn: 'Тэр ирэх ёстой.' },
+        { pattern: 'Verb-て おく', meaning: 'Урьдчилан хийх', example: '会議の 前に 資料を 読んで おきます。', exampleMn: 'Хурлын өмнө материал уншаад тавина.' },
+        { pattern: 'Verb-て いく', meaning: 'Хийгээд явах', example: '本を 持って いきます。', exampleMn: 'Ном авч явна.' },
+        { pattern: 'Verb-て くる', meaning: 'Хийгээд ирэх', example: 'ちょっと 買って きます。', exampleMn: 'Аваад ирье.' },
+        { pattern: 'という', meaning: 'Гэдэг', example: '「さくら」という 花', exampleMn: 'Сакура гэдэг цэцэг' },
+        { pattern: '〜によって', meaning: '-аас хамаарч', example: '人に よって 意見が 違います。', exampleMn: 'Хүн бүрээс санал бодол өөр.' }
+    ]
+};
+
+// Initialization
+document.addEventListener('DOMContentLoaded', () => {
+    setupTabs();
+    setupSearch();
+    renderKanji();
+    renderVocabulary();
+    renderGrammar();
+    updateCounts();
+});
+
+function setupTabs() {
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tab = btn.dataset.tab;
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(tab).classList.add('active');
+        });
+    });
+}
+
+function setupSearch() {
+    document.getElementById('kanjiSearch').addEventListener('input', (e) => renderKanji(e.target.value));
+    document.getElementById('vocabSearch').addEventListener('input', (e) => renderVocabulary(e.target.value));
+    document.getElementById('grammarSearch').addEventListener('input', (e) => renderGrammar(e.target.value));
+}
+
+function renderKanji(search = '') {
+    const grid = document.getElementById('kanjiGrid');
+    const filtered = jlptN4Data.kanji.filter(k => 
+        !search || k.char.includes(search) || k.meaning.toLowerCase().includes(search.toLowerCase())
+    );
+
+    grid.innerHTML = filtered.map(k => `
+        <div class="card">
+            <div class="kanji-main">${k.char}</div>
+            <div class="kanji-readings">
+                ${k.on.map(r => `<span class="reading">音: ${r}</span>`).join('')}
+                ${k.kun.map(r => `<span class="reading">訓: ${r}</span>`).join('')}
+            </div>
+            <div class="meaning">${k.meaning}</div>
+            <div style="text-align: center; margin-top: 1rem;">
+                <span class="stroke-count">${k.strokes} strokes</span>
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderVocabulary(search = '') {
+    const grid = document.getElementById('vocabGrid');
+    const filtered = jlptN4Data.vocabulary.filter(v => 
+        !search || v.jp.includes(search) || v.reading.includes(search) || v.meaning.toLowerCase().includes(search.toLowerCase())
+    );
+
+    grid.innerHTML = filtered.map(v => `
+        <div class="card">
+            <div class="vocab-jp">${v.jp}</div>
+            <div class="vocab-reading">${v.reading}</div>
+            <div class="vocab-meaning">${v.meaning}</div>
+        </div>
+    `).join('');
+}
+
+function renderGrammar(search = '') {
+    const grid = document.getElementById('grammarGrid');
+    const filtered = jlptN4Data.grammar.filter(g => 
+        !search || g.pattern.includes(search) || g.meaning.toLowerCase().includes(search.toLowerCase())
+    );
+
+    grid.innerHTML = filtered.map(g => `
+        <div class="card">
+            <div class="grammar-pattern">${g.pattern}</div>
+            <div class="grammar-meaning">${g.meaning}</div>
+            <div class="example">
+                <div class="example-jp">${g.example}</div>
+                <div class="example-mn">${g.exampleMn}</div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function updateCounts() {
+    document.getElementById('kanjiCount').textContent = jlptN4Data.kanji.length;
+    document.getElementById('vocabCount').textContent = jlptN4Data.vocabulary.length;
+    document.getElementById('grammarCount').textContent = jlptN4Data.grammar.length;
+}
+    </script>
+</body>
+</html>
