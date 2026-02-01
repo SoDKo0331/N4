@@ -2,7 +2,7 @@
 <html class="scroll-smooth" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>MERCH.CORP | Your Story. Your Vision. Your Merch.</title>
+<title>MERCH.CORP | High-Fashion Editorial Brand Interface</title>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Inter:wght@400;700;900&amp;family=Space+Grotesk:wght@700&amp;display=swap" rel="stylesheet"/>
@@ -24,6 +24,7 @@
                     borderWidth: {
                         '3': '3px',
                         '6': '6px',
+                        '8': '8px',
                     },
                     keyframes: {
                         ticker: {
@@ -37,12 +38,22 @@
                         float: {
                             '0%, 100%': { transform: 'translateY(0)' },
                             '50%': { transform: 'translateY(-10px)' }
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        scaleIn: {
+                            '0%': { transform: 'scale(0.9)', opacity: '0' },
+                            '100%': { transform: 'scale(1)', opacity: '1' }
                         }
                     },
                     animation: {
                         'ticker': 'ticker 30s linear infinite',
                         'pulse-cta': 'pulse 3s ease-in-out infinite',
-                        'float': 'float 4s ease-in-out infinite'
+                        'float': 'float 4s ease-in-out infinite',
+                        'fade-in': 'fadeIn 1s ease-out forwards',
+                        'scale-in': 'scaleIn 1.5s cubic-bezier(0.2, 0, 0.2, 1) forwards',
                     }
                 },
             },
@@ -51,89 +62,96 @@
 <style type="text/tailwindcss">
         @layer utilities {
             .brutalist-border {
-                border: 3px solid black;
+                border: 6px solid black;
             }
             .text-outline {
-                -webkit-text-stroke: 1.5px black;
+                -webkit-text-stroke: 2px black;
                 color: transparent;
             }
             .category-card {
                 position: relative;
                 overflow: hidden;
-                border: 3px solid black;
-                transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+                border: 6px solid black;
+                transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
             }
             .category-card:hover {
-                transform: translateY(-8px) scale(1.01);
-                box-shadow: 12px 12px 0px 0px rgba(0,0,0,1);
+                transform: translateY(-12px);
+                box-shadow: 16px 16px 0px 0px rgba(0,0,0,1);
+                z-index: 40;
             }
             .category-card img {
-                transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1), filter 0.5s ease;
+                transition: transform 1.2s cubic-bezier(0.23, 1, 0.32, 1), filter 0.8s ease;
             }
             .category-card:hover img {
-                transform: scale(1.1);
-                filter: grayscale(0) contrast(1.1);
+                transform: scale(1.05);
+                filter: grayscale(0) brightness(0.7);
             }
             .editorial-grid {
                 display: grid;
                 grid-template-columns: repeat(12, 1fr);
-                grid-auto-rows: 100px;
-                gap: 1.5rem;
-            }.reveal-hidden { opacity: 0; }
-            .reveal-up { transform: translateY(30px); opacity: 0; }
-            .reveal-scale { transform: scale(0.95); opacity: 0; }
+                gap: 2rem;
+            }
+            .parallax-bg {
+                background-attachment: fixed;
+                background-position: center;
+                background-size: cover;
+            }
+            .aggressive-type {
+                line-height: 0.8;
+                letter-spacing: -0.05em;
+            }
         }
     </style>
 </head>
 <body class="bg-white text-black font-sans selection:bg-primary selection:text-white overflow-x-hidden">
 <div class="sticky-cta animate-pulse-cta fixed bottom-8 right-8 z-[100]">
-<button class="bg-primary text-white border-3 border-black font-display text-lg px-8 py-4 uppercase shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:bg-secondary hover:text-black transition-all hover:translate-x-[-4px] hover:translate-y-[-4px] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-0 active:translate-y-0">
-        Start Your Project
+<button class="bg-primary text-white border-6 border-black font-display text-xl px-10 py-5 uppercase shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] hover:bg-secondary hover:text-black transition-all hover:translate-x-[-4px] hover:translate-y-[-4px] hover:shadow-[14px_14px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-0 active:translate-y-0">
+        Start Project
     </button>
 </div>
-<nav class="fixed top-0 z-[60] w-full bg-white border-b-3 border-black">
-<div class="max-w-[1440px] mx-auto px-6 h-20 flex justify-between items-center">
+<nav class="fixed top-0 z-[60] w-full bg-white border-b-6 border-black">
+<div class="max-w-[1440px] mx-auto px-6 h-24 flex justify-between items-center">
 <div class="flex items-center gap-12">
-<span class="font-display text-3xl tracking-tighter text-black uppercase">MERCH<span class="text-primary">.</span>CORP</span>
-<div class="hidden lg:flex space-x-8 text-xs font-black uppercase tracking-widest text-black">
-<a class="hover:text-primary transition-colors underline decoration-2 underline-offset-4" href="#">Featured Merch</a>
+<span class="font-display text-4xl tracking-tighter text-black uppercase">MERCH<span class="text-primary">.</span>CORP</span>
+<div class="hidden lg:flex space-x-10 text-sm font-black uppercase tracking-widest text-black">
+<a class="hover:text-primary transition-colors underline decoration-4 underline-offset-8" href="#">Featured</a>
 <a class="hover:text-primary transition-colors" href="#">Product</a>
 <a class="hover:text-primary transition-colors" href="#">Company</a>
 </div>
 </div>
-<button class="bg-primary text-white border-3 border-black px-6 py-2 font-display text-sm uppercase tracking-widest hover:bg-secondary hover:text-black transition-colors">
+<button class="bg-black text-white border-3 border-black px-8 py-3 font-display text-lg uppercase tracking-widest hover:bg-primary transition-all">
             Contact Lab
         </button>
 </div>
 </nav>
-<header class="relative pt-20 min-h-screen flex items-center overflow-hidden bg-primary border-b-3 border-black">
-<div class="max-w-[1440px] mx-auto px-6 grid grid-cols-12 gap-8 items-center w-full py-20">
-<div class="col-span-12 lg:col-span-7 z-10">
-<div class="inline-block bg-black text-secondary px-4 py-1 font-black text-xs uppercase tracking-[0.2em] mb-6 brutalist-border transition-all duration-700 delay-100">
+<header class="relative pt-24 min-h-screen flex items-center overflow-hidden bg-primary border-b-6 border-black">
+<div class="max-w-[1440px] mx-auto px-6 grid grid-cols-12 gap-12 items-center w-full py-20">
+<div class="col-span-12 lg:col-span-7 z-10 animate-fade-in">
+<div class="inline-block bg-black text-secondary px-6 py-2 font-black text-sm uppercase tracking-[0.3em] mb-8 border-3 border-black">
                 EST. 2024
             </div>
-<h1 class="font-display text-6xl md:text-[7.5rem] text-secondary leading-[0.85] uppercase mb-8 drop-shadow-[4px_4px_0px_rgba(0,0,0,1)] transition-all duration-1000 ease-out">
+<h1 class="font-display text-7xl md:text-[9rem] text-secondary aggressive-type uppercase mb-10 drop-shadow-[8px_8px_0px_rgba(0,0,0,1)]">
                 Your Story.<br/>Your Vision.<br/>Your Merch.
             </h1>
-<p class="max-w-xl text-white font-bold text-lg uppercase tracking-wide mb-10 leading-relaxed transition-all duration-700 delay-300">
-                From Identity to Everyday. More than products. More than logos. We turn identity, vision, and creativity into merchandise that reflects who you are and what you stand for.
+<p class="max-w-xl text-white font-bold text-xl uppercase tracking-wide mb-12 leading-tight opacity-0 animate-fade-in [animation-delay:0.4s] [animation-fill-mode:forwards]">
+                From Identity to Everyday. We turn vision and creativity into high-end merchandise that reflects your brand ethos.
             </p>
-<div class="flex gap-4 transition-all duration-700 delay-500">
-<button class="bg-secondary text-black border-3 border-black font-display text-xl px-10 py-5 uppercase hover:bg-white transition-all shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-1 active:translate-y-1">
+<div class="flex gap-4 opacity-0 animate-fade-in [animation-delay:0.6s] [animation-fill-mode:forwards]">
+<button class="bg-secondary text-black border-6 border-black font-display text-2xl px-12 py-6 uppercase hover:bg-white transition-all shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-1 active:translate-y-1">
                     CUSTOMIZE YOUR STORY
                 </button>
 </div>
 </div>
-<div class="col-span-12 lg:col-span-5 relative">
-<div class="w-full aspect-[4/5] overflow-hidden brutalist-border shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] bg-black transition-transform duration-[2000ms] scale-100 hover:scale-105">
-<img alt="High-end model portrait" class="w-full h-full object-cover transition-transform duration-[3000ms] hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkTbcGURwVrjWdqdJXPzih4D2yfk7BeaGdM3R3BjFGRgxAtjerKGKquM42HTm7VII5akUoZRT6OAVHzxM5CbYA0vJjkUMxedmTJcP18fcddkr3ehWL4_KWZ4lK2IIq7Tcn657Hyc3tikvaKX8DWu0h1PxorZb0Vtz2s6nFmcan5He5PkPNqrcUuoSpIDasRakSsCjOvFOuzrEx2IgMMnCW1bGW16xtGvzo79x9L3ldMOUwgYBMqsGPBuFH0SY1lW4k5RDxfKsU-Wk"/>
+<div class="col-span-12 lg:col-span-5 relative animate-scale-in">
+<div class="w-full aspect-[4/5] overflow-hidden brutalist-border shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] bg-black">
+<img alt="High-end model portrait" class="w-full h-full object-cover grayscale brightness-75 transition-all duration-1000 hover:grayscale-0 hover:brightness-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkTbcGURwVrjWdqdJXPzih4D2yfk7BeaGdM3R3BjFGRgxAtjerKGKquM42HTm7VII5akUoZRT6OAVHzxM5CbYA0vJjkUMxedmTJcP18fcddkr3ehWL4_KWZ4lK2IIq7Tcn657Hyc3tikvaKX8DWu0h1PxorZb0Vtz2s6nFmcan5He5PkPNqrcUuoSpIDasRakSsCjOvFOuzrEx2IgMMnCW1bGW16xtGvzo79x9L3ldMOUwgYBMqsGPBuFH0SY1lW4k5RDxfKsU-Wk"/>
 </div>
 </div>
 </div>
 </header>
-<section class="py-12 bg-white border-b-3 border-black overflow-hidden relative">
-<div class="flex animate-ticker whitespace-nowrap border-y-3 border-black bg-primary text-white font-display text-4xl uppercase py-4">
-<div class="flex gap-12 px-6">
+<section class="py-12 bg-white border-b-6 border-black overflow-hidden relative">
+<div class="flex animate-ticker whitespace-nowrap border-y-6 border-black bg-primary text-white font-display text-5xl uppercase py-6">
+<div class="flex gap-16 px-8">
 <span>Corporate gifting</span><span class="text-secondary">/</span>
 <span>Mongol Bo'kh</span><span class="text-secondary">/</span>
 <span>Clothes</span><span class="text-secondary">/</span>
@@ -142,7 +160,7 @@
 <span>Drinkware</span><span class="text-secondary">/</span>
 <span>Events</span><span class="text-secondary">/</span>
 </div>
-<div class="flex gap-12 px-6">
+<div class="flex gap-16 px-8">
 <span>Corporate gifting</span><span class="text-secondary">/</span>
 <span>Mongol Bo'kh</span><span class="text-secondary">/</span>
 <span>Clothes</span><span class="text-secondary">/</span>
@@ -153,171 +171,186 @@
 </div>
 </div>
 </section>
-<section class="py-32 bg-white border-b-3 border-black">
+<section class="py-32 bg-white border-b-6 border-black">
 <div class="max-w-[1440px] mx-auto px-6">
-<div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-20 gap-8">
-<div class="max-w-3xl">
-<h2 class="font-display text-7xl md:text-9xl uppercase tracking-tighter leading-none mb-4 transition-all duration-700">POPULAR <span class="text-primary">CORE</span></h2>
-<p class="font-brutal text-xl uppercase font-black tracking-tight">The industry standards, redesigned for the bold.</p>
-</div>
-<a class="group flex items-center gap-4 bg-black text-white px-8 py-6 brutalist-border hover:bg-secondary hover:text-black transition-all" href="#">
-<span class="font-display text-2xl uppercase">View All Categories</span>
-<span class="material-symbols-outlined text-4xl group-hover:translate-x-2 transition-transform">east</span>
-</a>
+<div class="mb-24">
+<h2 class="font-display text-8xl md:text-[12rem] uppercase aggressive-type mb-4 tracking-tighter">POPULAR <span class="text-primary">CORE</span></h2>
+<p class="font-brutal text-2xl uppercase font-black tracking-widest text-primary">Industry standards. Redefined.</p>
 </div>
 <div class="editorial-grid">
-<div class="col-span-12 md:col-span-8 row-span-5 category-card group">
-<div class="absolute inset-0 z-10 bg-primary/0 group-hover:bg-primary/40 transition-colors duration-500"></div>
-<img alt="Corporate gifting" class="w-full h-full object-cover grayscale group-hover:grayscale-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkTbcGURwVrjWdqdJXPzih4D2yfk7BeaGdM3R3BjFGRgxAtjerKGKquM42HTm7VII5akUoZRT6OAVHzxM5CbYA0vJjkUMxedmTJcP18fcddkr3ehWL4_KWZ4lK2IIq7Tcn657Hyc3tikvaKX8DWu0h1PxorZb0Vtz2s6nFmcan5He5PkPNqrcUuoSpIDasRakSsCjOvFOuzrEx2IgMMnCW1bGW16xtGvzo79x9L3ldMOUwgYBMqsGPBuFH0SY1lW4k5RDxfKsU-Wk"/>
-<div class="absolute inset-0 z-20 p-12 flex flex-col justify-end">
-<h3 class="font-display text-7xl md:text-8xl text-white uppercase leading-none drop-shadow-lg group-hover:translate-x-4 transition-transform duration-500">Corporate<br/><span class="text-secondary">Gifting</span></h3>
-</div>
-<div class="absolute top-8 right-8 z-20 bg-secondary text-black px-4 py-2 font-display text-xl border-2 border-black -rotate-6">TOP TIER</div>
-</div>
-<div class="col-span-12 md:col-span-4 row-span-7 category-card group bg-black">
-<div class="absolute inset-0 z-10 bg-secondary/0 group-hover:bg-secondary/30 transition-colors duration-500"></div>
-<img alt="Mongol Bo'kh" class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-NO7gpjoqwPX_3FQYDOoaTQUmBLomidzUQZFIt5vFioY1RQx0AMk7c0jn2WqSSzKdhL_35uk4eUKGONRsMKdmViJauR9_Qz18VKkq5eT_Gsp1WOd8ZcghwQ_99kN7ELVsTKJLjK22kqMOfYRm1tKjZwOi4J8Jt5DY9Gy7aKiUQ6SP9GVlb1DfWmnck3YqoAxOgO2GcOhsM29JipevsYXA-jD6hmLRDft6FQsGjhyafXuGnmEpOkwoNpMXs5O4mi-4y-hu2LJTMh0"/>
-<div class="absolute inset-0 z-20 p-8 flex flex-col justify-start">
-<span class="font-display text-4xl text-outline mb-2">02</span>
-<h3 class="font-display text-6xl text-white uppercase leading-[0.9] group-hover:translate-y-2 transition-transform duration-500">Mongol<br/>Bo'kh</h3>
+<div class="col-span-12 h-[80vh] category-card group bg-black relative">
+<div class="absolute inset-0 z-0 parallax-bg opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDkTbcGURwVrjWdqdJXPzih4D2yfk7BeaGdM3R3BjFGRgxAtjerKGKquM42HTm7VII5akUoZRT6OAVHzxM5CbYA0vJjkUMxedmTJcP18fcddkr3ehWL4_KWZ4lK2IIq7Tcn657Hyc3tikvaKX8DWu0h1PxorZb0Vtz2s6nFmcan5He5PkPNqrcUuoSpIDasRakSsCjOvFOuzrEx2IgMMnCW1bGW16xtGvzo79x9L3ldMOUwgYBMqsGPBuFH0SY1lW4k5RDxfKsU-Wk');"></div>
+<div class="absolute inset-0 z-10 bg-gradient-to-t from-black/80 to-transparent"></div>
+<div class="absolute inset-0 z-20 flex flex-col justify-end p-12 md:p-24">
+<h3 class="font-display text-8xl md:text-[14rem] text-secondary aggressive-type uppercase transition-all duration-700 -translate-x-10 group-hover:translate-x-0 group-hover:scale-105">
+                        CORPORATE<br/>GIFTING
+                    </h3>
+<div class="mt-8 flex items-center gap-6">
+<span class="h-1 w-24 bg-secondary"></span>
+<span class="text-secondary font-brutal text-xl uppercase tracking-[0.4em]">The Elite Collection</span>
 </div>
 </div>
-<div class="col-span-12 md:col-span-4 row-span-4 category-card group">
-<div class="absolute inset-0 z-10 bg-primary/0 group-hover:bg-primary/40 transition-colors duration-500"></div>
+<div class="absolute top-12 right-12 z-20 bg-primary text-white border-6 border-black px-8 py-4 font-display text-3xl -rotate-12 transition-transform group-hover:rotate-0">
+                    FEATURED 01
+                </div>
+</div>
+<div class="col-span-12 lg:col-span-7 h-[700px] category-card group bg-black">
+<img alt="Mongol Bo'kh" class="w-full h-full object-cover grayscale opacity-70 group-hover:grayscale-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-NO7gpjoqwPX_3FQYDOoaTQUmBLomidzUQZFIt5vFioY1RQx0AMk7c0jn2WqSSzKdhL_35uk4eUKGONRsMKdmViJauR9_Qz18VKkq5eT_Gsp1WOd8ZcghwQ_99kN7ELVsTKJLjK22kqMOfYRm1tKjZwOi4J8Jt5DY9Gy7aKiUQ6SP9GVlb1DfWmnck3YqoAxOgO2GcOhsM29JipevsYXA-jD6hmLRDft6FQsGjhyafXuGnmEpOkwoNpMXs5O4mi-4y-hu2LJTMh0"/>
+<div class="absolute inset-0 z-20 p-12 flex flex-col justify-start">
+<h3 class="font-display text-9xl text-secondary aggressive-type uppercase -mt-10 group-hover:-translate-y-4 transition-transform duration-700">
+                        MONGOL<br/>BO'KH
+                    </h3>
+</div>
+<div class="absolute bottom-12 right-12 z-20">
+<span class="text-secondary font-display text-3xl border-b-6 border-secondary">EST. LEGACY</span>
+</div>
+</div>
+<div class="col-span-12 lg:col-span-5 h-[700px] category-card group bg-white">
 <img alt="Clothes" class="w-full h-full object-cover grayscale group-hover:grayscale-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_UEg4pfAJT3tEUTiIBGkK1RBqJQKg9miSIh24bA1xxq0nWWaojgz_uPAiCNNDz2bcnxuCrf9b-NOXx6Lc52eWKNeHDryQ9Y1BxCFRPFCuSw3HnqYE7ueDm78yDu8qLlYXDUwtNIdIYq2I39kxhmE2uz4m8mht-UPGlYtN9ldf6sghi6tdChMh-TpYxTssKO4IJSYsXM3zuJ6-0e6nPJ5VwTlldkLLRQckPiKuC2KiLbyttesHV3r-IT07tsaQGlcQCCPTQ45B3NE"/>
-<div class="absolute bottom-6 left-6 z-20">
-<h3 class="font-display text-5xl text-white uppercase group-hover:text-secondary transition-colors duration-300">Clothes</h3>
+<div class="absolute inset-0 z-20 flex items-center justify-center">
+<h3 class="font-display text-[10rem] text-primary aggressive-type uppercase rotate-90 group-hover:rotate-0 transition-all duration-1000">
+                        CLOTHES
+                    </h3>
 </div>
 </div>
-<div class="col-span-12 md:col-span-4 row-span-4 category-card group bg-primary">
-<div class="absolute inset-0 z-10 bg-secondary/0 group-hover:bg-secondary/40 transition-colors duration-500"></div>
-<img alt="Employee Onboarding" class="w-full h-full object-cover grayscale mix-blend-multiply opacity-70 group-hover:grayscale-0 group-hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9uF16F1tQzX6HBSkrvaLCmuAtBjh0SP-W7E6SDhHcxhEgbZvO8VOmB-W-TrTrE_H09JUQ1Q5NggvploXOhWVH_XWp_WAxj4EEDRRnCg_-tu70kSmjsyfHC_2GHspA64biyS1it8rEQlgjKNLIgBd7VAqSgAe4YZ2c9X3clABQzYwenWNpnCDKiquf75Ch5CrFf3l9EB3d7YlTuQzUfEhidlrhFvozgNjXdxDpOjwybmxbXxJXer-j3NqDLCqnLEcSK0LN1XbbUvY"/>
-<div class="absolute inset-0 z-20 flex items-center justify-center p-6 text-center">
-<h3 class="font-display text-5xl text-white uppercase leading-none transition-transform group-hover:scale-110">Employee<br/>Onboarding</h3>
+<div class="col-span-12 lg:col-span-4 h-[400px] flex items-center justify-center p-8 border-6 border-black bg-secondary group hover:bg-black transition-colors duration-500">
+<a class="flex flex-col items-center gap-6 text-center" href="#">
+<span class="font-display text-6xl uppercase leading-none group-hover:text-white transition-colors">VIEW ALL<br/>CATEGORIES</span>
+<span class="material-symbols-outlined text-7xl group-hover:translate-x-4 group-hover:text-primary transition-all">east</span>
+</a>
+</div>
+<div class="col-span-12 lg:col-span-8 h-[400px] category-card group bg-primary">
+<img alt="Employee Onboarding" class="w-full h-full object-cover grayscale group-hover:grayscale-0 mix-blend-multiply opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9uF16F1tQzX6HBSkrvaLCmuAtBjh0SP-W7E6SDhHcxhEgbZvO8VOmB-W-TrTrE_H09JUQ1Q5NggvploXOhWVH_XWp_WAxj4EEDRRnCg_-tu70kSmjsyfHC_2GHspA64biyS1it8rEQlgjKNLIgBd7VAqSgAe4YZ2c9X3clABQzYwenWNpnCDKiquf75Ch5CrFf3l9EB3d7YlTuQzUfEhidlrhFvozgNjXdxDpOjwybmxbXxJXer-j3NqDLCqnLEcSK0LN1XbbUvY"/>
+<div class="absolute inset-0 z-20 flex items-center p-12">
+<h3 class="font-display text-8xl text-secondary aggressive-type uppercase group-hover:tracking-[0.05em] transition-all duration-700">
+                        EMPLOYEE<br/>ONBOARDING
+                    </h3>
 </div>
 </div>
-<div class="col-span-12 md:col-span-3 row-span-3 category-card group">
-<div class="absolute inset-0 z-10 bg-secondary/20 group-hover:bg-transparent transition-colors duration-500"></div>
-<img alt="Saraa" class="w-full h-full object-cover grayscale group-hover:grayscale-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkTbcGURwVrjWdqdJXPzih4D2yfk7BeaGdM3R3BjFGRgxAtjerKGKquM42HTm7VII5akUoZRT6OAVHzxM5CbYA0vJjkUMxedmTJcP18fcddkr3ehWL4_KWZ4lK2IIq7Tcn657Hyc3tikvaKX8DWu0h1PxorZb0Vtz2s6nFmcan5He5PkPNqrcUuoSpIDasRakSsCjOvFOuzrEx2IgMMnCW1bGW16xtGvzo79x9L3ldMOUwgYBMqsGPBuFH0SY1lW4k5RDxfKsU-Wk"/>
-<div class="absolute top-4 left-4 z-20">
-<h3 class="font-display text-2xl bg-black text-white px-3 py-1 uppercase">Saraa</h3>
+<div class="col-span-12 lg:col-span-6 h-[600px] category-card group bg-black">
+<img alt="Saraa" class="w-full h-full object-cover grayscale opacity-70 group-hover:grayscale-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkTbcGURwVrjWdqdJXPzih4D2yfk7BeaGdM3R3BjFGRgxAtjerKGKquM42HTm7VII5akUoZRT6OAVHzxM5CbYA0vJjkUMxedmTJcP18fcddkr3ehWL4_KWZ4lK2IIq7Tcn657Hyc3tikvaKX8DWu0h1PxorZb0Vtz2s6nFmcan5He5PkPNqrcUuoSpIDasRakSsCjOvFOuzrEx2IgMMnCW1bGW16xtGvzo79x9L3ldMOUwgYBMqsGPBuFH0SY1lW4k5RDxfKsU-Wk"/>
+<div class="absolute bottom-12 left-12 z-20">
+<h3 class="font-display text-[12rem] text-secondary aggressive-type uppercase -mb-10 group-hover:-translate-y-6 transition-transform">
+                        SARAA
+                    </h3>
 </div>
 </div>
-<div class="col-span-12 md:col-span-5 row-span-3 category-card group">
-<div class="absolute inset-0 z-10 bg-primary/0 group-hover:bg-primary/50 transition-colors duration-500"></div>
+<div class="col-span-12 lg:col-span-6 h-[600px] category-card group bg-white">
 <img alt="Drinkware" class="w-full h-full object-cover grayscale group-hover:grayscale-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9uF16F1tQzX6HBSkrvaLCmuAtBjh0SP-W7E6SDhHcxhEgbZvO8VOmB-W-TrTrE_H09JUQ1Q5NggvploXOhWVH_XWp_WAxj4EEDRRnCg_-tu70kSmjsyfHC_2GHspA64biyS1it8rEQlgjKNLIgBd7VAqSgAe4YZ2c9X3clABQzYwenWNpnCDKiquf75Ch5CrFf3l9EB3d7YlTuQzUfEhidlrhFvozgNjXdxDpOjwybmxbXxJXer-j3NqDLCqnLEcSK0LN1XbbUvY"/>
-<div class="absolute inset-0 z-20 flex flex-col justify-end p-6">
-<h3 class="font-display text-4xl text-white uppercase tracking-tighter">Premium Drinkware</h3>
+<div class="absolute inset-0 z-20 flex flex-col justify-end p-12">
+<h3 class="font-display text-8xl text-primary aggressive-type uppercase text-right leading-[0.85] group-hover:scale-110 transition-transform">
+                        PREMIUM<br/>DRINKWARE
+                    </h3>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section class="py-24 bg-neutral-100 border-b-3 border-black overflow-hidden">
+<section class="py-24 bg-neutral-100 border-b-6 border-black overflow-hidden">
 <div class="max-w-[1440px] mx-auto px-6">
-<h2 class="font-display text-4xl uppercase mb-12 tracking-tighter">PARTNER COMPANIES</h2>
+<h2 class="font-display text-5xl uppercase mb-16 tracking-tighter">GLOBAL ALLIANCES</h2>
 <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
-<div class="h-24 bg-white brutalist-border flex items-center justify-center font-display text-2xl uppercase grayscale hover:grayscale-0 transition-all duration-700 cursor-pointer opacity-100 translate-y-0">Buh</div>
-<div class="h-24 bg-white brutalist-border flex items-center justify-center font-display text-2xl uppercase grayscale hover:grayscale-0 transition-all duration-700 cursor-pointer opacity-100 translate-y-0 delay-100">Event</div>
-<div class="h-24 bg-white brutalist-border flex items-center justify-center font-display text-2xl uppercase grayscale hover:grayscale-0 transition-all duration-700 cursor-pointer opacity-100 translate-y-0 delay-200">Corp Kit</div>
-<div class="h-24 bg-white brutalist-border flex items-center justify-center font-display text-2xl uppercase grayscale hover:grayscale-0 transition-all duration-700 cursor-pointer opacity-100 translate-y-0 delay-300">People</div>
-<div class="h-24 bg-white brutalist-border flex items-center justify-center font-display text-2xl uppercase grayscale hover:grayscale-0 transition-all duration-700 cursor-pointer opacity-100 translate-y-0 delay-400">Thunder</div>
-<div class="h-24 bg-white brutalist-border flex items-center justify-center font-display text-2xl uppercase grayscale hover:grayscale-0 transition-all duration-700 cursor-pointer opacity-100 translate-y-0 delay-500">Homesaraa</div>
+<div class="h-32 bg-white border-6 border-black flex items-center justify-center font-display text-3xl uppercase grayscale hover:grayscale-0 transition-all duration-500 cursor-pointer opacity-0 animate-fade-in [animation-delay:0.1s] [animation-fill-mode:forwards]">Buh</div>
+<div class="h-32 bg-white border-6 border-black flex items-center justify-center font-display text-3xl uppercase grayscale hover:grayscale-0 transition-all duration-500 cursor-pointer opacity-0 animate-fade-in [animation-delay:0.2s] [animation-fill-mode:forwards]">Event</div>
+<div class="h-32 bg-white border-6 border-black flex items-center justify-center font-display text-3xl uppercase grayscale hover:grayscale-0 transition-all duration-500 cursor-pointer opacity-0 animate-fade-in [animation-delay:0.3s] [animation-fill-mode:forwards]">Corp Kit</div>
+<div class="h-32 bg-white border-6 border-black flex items-center justify-center font-display text-3xl uppercase grayscale hover:grayscale-0 transition-all duration-500 cursor-pointer opacity-0 animate-fade-in [animation-delay:0.4s] [animation-fill-mode:forwards]">People</div>
+<div class="h-32 bg-white border-6 border-black flex items-center justify-center font-display text-3xl uppercase grayscale hover:grayscale-0 transition-all duration-500 cursor-pointer opacity-0 animate-fade-in [animation-delay:0.5s] [animation-fill-mode:forwards]">Thunder</div>
+<div class="h-32 bg-white border-6 border-black flex items-center justify-center font-display text-3xl uppercase grayscale hover:grayscale-0 transition-all duration-500 cursor-pointer opacity-0 animate-fade-in [animation-delay:0.6s] [animation-fill-mode:forwards]">Homesaraa</div>
 </div>
 </div>
 </section>
-<section class="py-32 bg-secondary border-b-3 border-black">
+<section class="py-32 bg-secondary border-b-6 border-black">
 <div class="max-w-[1440px] mx-auto px-6">
-<h2 class="font-display text-6xl uppercase mb-16 tracking-tighter text-black">HOW WE WORK</h2>
-<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-<div class="bg-black text-white p-10 brutalist-border shadow-[10px_10px_0px_0px_rgba(0,0,0,0.5)] space-y-8 group transition-all duration-700 hover:translate-y-[-10px] hover:rotate-1">
-<div class="font-display text-6xl text-secondary transition-transform group-hover:scale-110">01</div>
+<h2 class="font-display text-7xl uppercase mb-20 tracking-tighter text-black">THE METHODOLOGY</h2>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="bg-black text-white p-12 border-6 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,0.5)] space-y-10 group transition-all duration-700 hover:-translate-y-4 hover:rotate-2">
+<div class="font-display text-7xl text-secondary transition-transform group-hover:scale-125">01</div>
 <div class="space-y-4">
-<h4 class="font-display text-3xl uppercase">WE ENGAGE</h4>
-<p class="text-sm font-bold uppercase leading-relaxed tracking-wider text-neutral-400">Initial discovery and brand alignment session to define your vision.</p>
+<h4 class="font-display text-4xl uppercase">ENGAGE</h4>
+<p class="text-base font-bold uppercase leading-relaxed tracking-wider text-neutral-400">Defining vision and strategic alignment.</p>
 </div>
 </div>
-<div class="bg-primary text-white p-10 brutalist-border shadow-[10px_10px_0px_0px_rgba(0,0,0,0.5)] space-y-8 group transition-all duration-700 delay-100 hover:translate-y-[-10px] hover:-rotate-1">
-<div class="font-display text-6xl text-white transition-transform group-hover:scale-110">02</div>
+<div class="bg-primary text-white p-12 border-6 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,0.5)] space-y-10 group transition-all duration-700 hover:-translate-y-4 hover:-rotate-2">
+<div class="font-display text-7xl text-white transition-transform group-hover:scale-125">02</div>
 <div class="space-y-4">
-<h4 class="font-display text-3xl uppercase">WE RESEARCH</h4>
-<p class="text-sm font-bold uppercase leading-relaxed tracking-wider text-white/80">Market analysis and deep dive into the best materials for your story.</p>
+<h4 class="font-display text-4xl uppercase">RESEARCH</h4>
+<p class="text-base font-bold uppercase leading-relaxed tracking-wider text-white/80">Market depth and material sourcing.</p>
 </div>
 </div>
-<div class="bg-white text-black p-10 brutalist-border shadow-[10px_10px_0px_0px_rgba(0,0,0,0.5)] space-y-8 group transition-all duration-700 delay-200 hover:translate-y-[-10px] hover:rotate-1">
-<div class="font-display text-6xl text-primary transition-transform group-hover:scale-110">03</div>
+<div class="bg-white text-black p-12 border-6 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,0.5)] space-y-10 group transition-all duration-700 hover:-translate-y-4 hover:rotate-2">
+<div class="font-display text-7xl text-primary transition-transform group-hover:scale-125">03</div>
 <div class="space-y-4">
-<h4 class="font-display text-3xl uppercase">WE DESIGN</h4>
-<p class="text-sm font-bold uppercase leading-relaxed tracking-wider text-neutral-600">Bespoke technical design and digital prototyping rounds.</p>
+<h4 class="font-display text-4xl uppercase">DESIGN</h4>
+<p class="text-base font-bold uppercase leading-relaxed tracking-wider text-neutral-600">Bespoke digital prototyping labs.</p>
 </div>
 </div>
-<div class="bg-black text-white p-10 brutalist-border shadow-[10px_10px_0px_0px_rgba(0,0,0,0.5)] space-y-8 group transition-all duration-700 delay-300 hover:translate-y-[-10px] hover:-rotate-1">
-<div class="font-display text-6xl text-primary transition-transform group-hover:scale-110">04</div>
+<div class="bg-black text-white p-12 border-6 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,0.5)] space-y-10 group transition-all duration-700 hover:-translate-y-4 hover:-rotate-2">
+<div class="font-display text-7xl text-primary transition-transform group-hover:scale-125">04</div>
 <div class="space-y-4">
-<h4 class="font-display text-3xl uppercase">WE CREATE</h4>
-<p class="text-sm font-bold uppercase leading-relaxed tracking-wider text-neutral-400">Mass manufacturing and global distribution of your final products.</p>
+<h4 class="font-display text-4xl uppercase">CREATE</h4>
+<p class="text-base font-bold uppercase leading-relaxed tracking-wider text-neutral-400">Global mass distribution systems.</p>
 </div>
-</div>
-</div>
-</div>
-</section>
-<section class="py-32 bg-secondary border-b-3 border-black">
-<div class="max-w-[1440px] mx-auto px-6">
-<h2 class="font-display text-6xl uppercase mb-16 tracking-tighter text-black">WHAT WE PROMISE</h2>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-<div class="bg-white border-3 border-black p-10 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-2 transition-all group overflow-hidden">
-<div class="animate-float">
-<span class="material-symbols-outlined text-black text-5xl mb-6">verified</span>
-</div>
-<h4 class="font-display text-2xl uppercase mb-4">Quality</h4>
-<p class="text-sm text-black font-bold uppercase leading-relaxed tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-y-4 group-hover:translate-y-0">Premium fabrics and rigorous testing protocols for every piece.</p>
-</div>
-<div class="bg-white border-3 border-black p-10 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-2 transition-all group overflow-hidden">
-<div class="animate-float delay-100" style="animation-delay: 0.5s;">
-<span class="material-symbols-outlined text-black text-5xl mb-6">handshake</span>
-</div>
-<h4 class="font-display text-2xl uppercase mb-4">Customer-driven</h4>
-<p class="text-sm text-black font-bold uppercase leading-relaxed tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-y-4 group-hover:translate-y-0">Our focus is on your specific needs and long-term brand success.</p>
-</div>
-<div class="bg-white border-3 border-black p-10 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-2 transition-all group overflow-hidden">
-<div class="animate-float delay-200" style="animation-delay: 1s;">
-<span class="material-symbols-outlined text-black text-5xl mb-6">bolt</span>
-</div>
-<h4 class="font-display text-2xl uppercase mb-4">Innovation</h4>
-<p class="text-sm text-black font-bold uppercase leading-relaxed tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-y-4 group-hover:translate-y-0">Continuous improvement in design lab and production tech.</p>
-</div>
-<div class="bg-white border-3 border-black p-10 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-2 transition-all group overflow-hidden">
-<div class="animate-float delay-300" style="animation-delay: 1.5s;">
-<span class="material-symbols-outlined text-black text-5xl mb-6">gavel</span>
-</div>
-<h4 class="font-display text-2xl uppercase mb-4">Professional ethics</h4>
-<p class="text-sm text-black font-bold uppercase leading-relaxed tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-y-4 group-hover:translate-y-0">Transparent supply chain and high standards of integrity.</p>
 </div>
 </div>
 </div>
 </section>
-<footer class="bg-white py-20 border-t-3 border-black">
+<section class="py-32 bg-secondary border-b-6 border-black">
 <div class="max-w-[1440px] mx-auto px-6">
-<div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
+<h2 class="font-display text-7xl uppercase mb-20 tracking-tighter text-black">CORE PROMISES</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+<div class="bg-white border-6 border-black p-12 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-3 transition-all group overflow-hidden">
+<div class="animate-float mb-10">
+<span class="material-symbols-outlined text-black text-7xl">verified</span>
+</div>
+<h4 class="font-display text-4xl uppercase mb-6">Quality</h4>
+<p class="text-base text-black font-bold uppercase leading-relaxed opacity-0 group-hover:opacity-100 transition-all duration-700 translate-y-8 group-hover:translate-y-0">Premium fabrics and rigorous testing protocols for every piece.</p>
+</div>
+<div class="bg-white border-6 border-black p-12 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-3 transition-all group overflow-hidden">
+<div class="animate-float mb-10 [animation-delay:0.5s]">
+<span class="material-symbols-outlined text-black text-7xl">handshake</span>
+</div>
+<h4 class="font-display text-4xl uppercase mb-6">Customer</h4>
+<p class="text-base text-black font-bold uppercase leading-relaxed opacity-0 group-hover:opacity-100 transition-all duration-700 translate-y-8 group-hover:translate-y-0">Long-term brand success is our driving force.</p>
+</div>
+<div class="bg-white border-6 border-black p-12 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-3 transition-all group overflow-hidden">
+<div class="animate-float mb-10 [animation-delay:1s]">
+<span class="material-symbols-outlined text-black text-7xl">bolt</span>
+</div>
+<h4 class="font-display text-4xl uppercase mb-6">Innovation</h4>
+<p class="text-base text-black font-bold uppercase leading-relaxed opacity-0 group-hover:opacity-100 transition-all duration-700 translate-y-8 group-hover:translate-y-0">Continuous improvement in our design labs.</p>
+</div>
+<div class="bg-white border-6 border-black p-12 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-3 transition-all group overflow-hidden">
+<div class="animate-float mb-10 [animation-delay:1.5s]">
+<span class="material-symbols-outlined text-black text-7xl">gavel</span>
+</div>
+<h4 class="font-display text-4xl uppercase mb-6">Ethics</h4>
+<p class="text-base text-black font-bold uppercase leading-relaxed opacity-0 group-hover:opacity-100 transition-all duration-700 translate-y-8 group-hover:translate-y-0">Transparent supply chains and high integrity standards.</p>
+</div>
+</div>
+</div>
+</section>
+<footer class="bg-white py-24 border-t-6 border-black">
+<div class="max-w-[1440px] mx-auto px-6">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-16 mb-24">
 <div class="col-span-1 md:col-span-1">
-<span class="font-display text-3xl tracking-tighter mb-8 block uppercase">MERCH<span class="text-primary">.</span>CORP</span>
-<p class="text-xs font-black uppercase tracking-widest leading-loose mb-8">
+<span class="font-display text-5xl tracking-tighter mb-10 block uppercase">MERCH<span class="text-primary">.</span>CORP</span>
+<p class="text-sm font-black uppercase tracking-[0.2em] leading-loose mb-10">
                     1024 INDUSTRIAL BLVD.<br/>
                     SYSTEM SECTOR 04<br/>
                     GLOBAL HUB
                 </p>
-<div class="flex gap-4">
-<a class="w-12 h-12 brutalist-border flex items-center justify-center hover:bg-primary hover:text-white transition-colors" href="#">
-<span class="material-symbols-outlined">share</span>
+<div class="flex gap-6">
+<a class="w-16 h-16 border-6 border-black flex items-center justify-center hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-3xl">share</span>
 </a>
-<a class="w-12 h-12 brutalist-border flex items-center justify-center hover:bg-secondary hover:text-black transition-colors" href="#">
-<span class="material-symbols-outlined">play_arrow</span>
+<a class="w-16 h-16 border-6 border-black flex items-center justify-center hover:bg-secondary hover:text-black transition-all" href="#">
+<span class="material-symbols-outlined text-3xl">play_arrow</span>
 </a>
 </div>
 </div>
 <div>
-<h5 class="font-display text-lg uppercase tracking-[0.2em] mb-6 border-b-2 border-black">Service</h5>
-<ul class="space-y-3 text-xs font-black uppercase tracking-widest">
+<h5 class="font-display text-2xl uppercase tracking-[0.2em] mb-8 border-b-6 border-black inline-block">Service</h5>
+<ul class="space-y-4 text-sm font-black uppercase tracking-widest">
 <li><a class="hover:text-primary transition-colors" href="#">Custom Apparel</a></li>
 <li><a class="hover:text-primary transition-colors" href="#">Design Lab</a></li>
 <li><a class="hover:text-primary transition-colors" href="#">Logistics</a></li>
@@ -325,8 +358,8 @@
 </ul>
 </div>
 <div>
-<h5 class="font-display text-lg uppercase tracking-[0.2em] mb-6 border-b-2 border-black">Support</h5>
-<ul class="space-y-3 text-xs font-black uppercase tracking-widest">
+<h5 class="font-display text-2xl uppercase tracking-[0.2em] mb-8 border-b-6 border-black inline-block">Support</h5>
+<ul class="space-y-4 text-sm font-black uppercase tracking-widest">
 <li><a class="hover:text-primary transition-colors" href="#">Account</a></li>
 <li><a class="hover:text-primary transition-colors" href="#">Orders</a></li>
 <li><a class="hover:text-primary transition-colors" href="#">Project Tracker</a></li>
@@ -334,8 +367,8 @@
 </ul>
 </div>
 <div>
-<h5 class="font-display text-lg uppercase tracking-[0.2em] mb-6 border-b-2 border-black">What We Do</h5>
-<ul class="space-y-3 text-xs font-black uppercase tracking-widest">
+<h5 class="font-display text-2xl uppercase tracking-[0.2em] mb-8 border-b-6 border-black inline-block">Mission</h5>
+<ul class="space-y-4 text-sm font-black uppercase tracking-widest">
 <li><a class="hover:text-primary transition-colors" href="#">Corporate Merch</a></li>
 <li><a class="hover:text-primary transition-colors" href="#">Employee Kits</a></li>
 <li><a class="hover:text-primary transition-colors" href="#">Event Supplies</a></li>
@@ -343,12 +376,12 @@
 </ul>
 </div>
 </div>
-<div class="flex flex-col md:flex-row justify-between items-center gap-8 pt-8 border-t-3 border-black text-xs font-black uppercase tracking-widest">
+<div class="flex flex-col md:flex-row justify-between items-center gap-10 pt-10 border-t-6 border-black text-sm font-black uppercase tracking-widest">
 <p>© 2024 MERCH.CORP - YOUR STORY. YOUR VISION. YOUR MERCH.</p>
-<div class="flex gap-6 uppercase tracking-[0.3em]">
+<div class="flex gap-10 uppercase tracking-[0.4em]">
 <span>Privacy</span>
 <span>Terms</span>
-<span class="bg-black text-white px-2">System V.04</span>
+<span class="bg-black text-white px-3 py-1">V.04</span>
 </div>
 </div>
 </div>
