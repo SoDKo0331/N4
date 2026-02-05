@@ -353,9 +353,8 @@
                 <input type="number" id="undercoverCount" min="1" value="1">
             </div>
 
-            <div class="input-group">
-                <label for="mrWhiteCount">Mr. White тоглогчийн тоо:</label>
-                <input type="number" id="mrWhiteCount" min="0" value="0">
+            <div class="game-info">
+                <p style="color: #667eea;">ℹ️ Mr. White: Автоматаар 1 тоглогч санамсаргүй сонгогдоно</p>
             </div>
 
             <button class="btn" onclick="startGame()">Тоглоом эхлүүлэх</button>
@@ -485,10 +484,15 @@
         // Тоглоом эхлүүлэх
         function startGame() {
             const undercoverCount = parseInt(document.getElementById('undercoverCount').value);
-            const mrWhiteCount = parseInt(document.getElementById('mrWhiteCount').value);
+            const mrWhiteCount = 1; // Үргэлж 1 Mr. White
 
             if (undercoverCount + mrWhiteCount >= players.length) {
                 alert('Undercover болон Mr. White тоглогчдын нийлбэр нийт тоглогчоос бага байх ёстой!');
+                return;
+            }
+
+            if (players.length < 3) {
+                alert('Хамгийн багадаа 3 тоглогч шаардлагатай!');
                 return;
             }
 
@@ -500,7 +504,7 @@
             // Дүрүүдийг санамсаргүй байдлаар хуваарилах
             const roles = [];
             for (let i = 0; i < undercoverCount; i++) roles.push('undercover');
-            for (let i = 0; i < mrWhiteCount; i++) roles.push('mrwhite');
+            for (let i = 0; i < mrWhiteCount; i++) roles.push('mrwhite'); // Үргэлж 1
             for (let i = 0; i < players.length - undercoverCount - mrWhiteCount; i++) roles.push('civilian');
 
             // Холих
