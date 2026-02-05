@@ -1,390 +1,629 @@
 <!DOCTYPE html>
-<html class="scroll-smooth" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>MERCH.CORP | High-Fashion Editorial Brand Interface</title>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Inter:wght@400;700;900&amp;family=Space+Grotesk:wght@700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: "#2D46FF", // Electric Blue
-                        secondary: "#CCFF00", // Neon Lime
-                    },
-                    fontFamily: {
-                        display: ["Anton", "sans-serif"],
-                        sans: ["Inter", "sans-serif"],
-                        brutal: ["Space Grotesk", "sans-serif"],
-                    },
-                    borderWidth: {
-                        '3': '3px',
-                        '6': '6px',
-                        '8': '8px',
-                    },
-                    keyframes: {
-                        ticker: {
-                            '0%': { transform: 'translateX(0)' },
-                            '100%': { transform: 'translateX(-50%)' }
-                        },
-                        pulse: {
-                            '0%, 100%': { transform: 'scale(1)', boxShadow: '8px 8px 0px 0px rgba(0,0,0,1)' },
-                            '50%': { transform: 'scale(1.05)', boxShadow: '12px 12px 0px 0px rgba(45,70,255,1)' }
-                        },
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' }
-                        },
-                        fadeIn: {
-                            '0%': { opacity: '0', transform: 'translateY(10px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' }
-                        },
-                        scaleIn: {
-                            '0%': { transform: 'scale(0.9)', opacity: '0' },
-                            '100%': { transform: 'scale(1)', opacity: '1' }
-                        }
-                    },
-                    animation: {
-                        'ticker': 'ticker 30s linear infinite',
-                        'pulse-cta': 'pulse 3s ease-in-out infinite',
-                        'float': 'float 4s ease-in-out infinite',
-                        'fade-in': 'fadeIn 1s ease-out forwards',
-                        'scale-in': 'scaleIn 1.5s cubic-bezier(0.2, 0, 0.2, 1) forwards',
-                    }
-                },
-            },
-        };
-    </script>
-<style type="text/tailwindcss">
-        @layer utilities {
-            .brutalist-border {
-                border: 6px solid black;
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undercover Тоглоом</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+            padding: 30px;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
             }
-            .text-outline {
-                -webkit-text-stroke: 2px black;
-                color: transparent;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
-            .category-card {
-                position: relative;
-                overflow: hidden;
-                border: 6px solid black;
-                transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+
+        .quick-add {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .quick-add input {
+            flex: 1;
+        }
+
+        .quick-add button {
+            width: auto;
+            padding: 12px 20px;
+            margin: 0;
+        }
+
+        .member-list {
+            max-height: 300px;
+            overflow-y: auto;
+            margin: 20px 0;
+            border: 2px solid #f0f0f0;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .member-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .member-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .remove-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .word-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .word-card.hidden {
+            background: #333;
+        }
+
+        .word-card h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .word-card p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .player-turn {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 20px;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .game-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .game-info p {
+            margin: 5px 0;
+            color: #666;
+        }
+
+        .game-info strong {
+            color: #333;
+        }
+
+        .role-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .role-civilian {
+            background: #48dbfb;
+            color: white;
+        }
+
+        .role-undercover {
+            background: #ff6348;
+            color: white;
+        }
+
+        .role-mrwhite {
+            background: #222;
+            color: white;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .stat-item {
+            flex: 1;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+        }
+
+        .empty-state-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
             }
-            .category-card:hover {
-                transform: translateY(-12px);
-                box-shadow: 16px 16px 0px 0px rgba(0,0,0,1);
-                z-index: 40;
+
+            h1 {
+                font-size: 24px;
             }
-            .category-card img {
-                transition: transform 1.2s cubic-bezier(0.23, 1, 0.32, 1), filter 0.8s ease;
+
+            .word-card h2 {
+                font-size: 24px;
             }
-            .category-card:hover img {
-                transform: scale(1.05);
-                filter: grayscale(0) brightness(0.7);
+
+            .btn {
+                padding: 12px;
+                font-size: 14px;
             }
-            .editorial-grid {
-                display: grid;
-                grid-template-columns: repeat(12, 1fr);
-                gap: 2rem;
-            }
-            .parallax-bg {
-                background-attachment: fixed;
-                background-position: center;
-                background-size: cover;
-            }
-            .aggressive-type {
-                line-height: 0.8;
-                letter-spacing: -0.05em;
+
+            .stat-number {
+                font-size: 24px;
             }
         }
     </style>
 </head>
-<body class="bg-white text-black font-sans selection:bg-primary selection:text-white overflow-x-hidden">
-<div class="sticky-cta animate-pulse-cta fixed bottom-8 right-8 z-[100]">
-<button class="bg-primary text-white border-6 border-black font-display text-xl px-10 py-5 uppercase shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] hover:bg-secondary hover:text-black transition-all hover:translate-x-[-4px] hover:translate-y-[-4px] hover:shadow-[14px_14px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-0 active:translate-y-0">
-        Start Project
-    </button>
-</div>
-<nav class="fixed top-0 z-[60] w-full bg-white border-b-6 border-black">
-<div class="max-w-[1440px] mx-auto px-6 h-24 flex justify-between items-center">
-<div class="flex items-center gap-12">
-<span class="font-display text-4xl tracking-tighter text-black uppercase">MERCH<span class="text-primary">.</span>CORP</span>
-<div class="hidden lg:flex space-x-10 text-sm font-black uppercase tracking-widest text-black">
-<a class="hover:text-primary transition-colors underline decoration-4 underline-offset-8" href="#">Featured</a>
-<a class="hover:text-primary transition-colors" href="#">Product</a>
-<a class="hover:text-primary transition-colors" href="#">Company</a>
-</div>
-</div>
-<button class="bg-black text-white border-3 border-black px-8 py-3 font-display text-lg uppercase tracking-widest hover:bg-primary transition-all">
-            Contact Lab
-        </button>
-</div>
-</nav>
-<header class="relative pt-24 min-h-screen flex items-center overflow-hidden bg-primary border-b-6 border-black">
-<div class="max-w-[1440px] mx-auto px-6 grid grid-cols-12 gap-12 items-center w-full py-20">
-<div class="col-span-12 lg:col-span-7 z-10 animate-fade-in">
-<div class="inline-block bg-black text-secondary px-6 py-2 font-black text-sm uppercase tracking-[0.3em] mb-8 border-3 border-black">
-                EST. 2024
-            </div>
-<h1 class="font-display text-7xl md:text-[9rem] text-secondary aggressive-type uppercase mb-10 drop-shadow-[8px_8px_0px_rgba(0,0,0,1)]">
-                Your Story.<br/>Your Vision.<br/>Your Merch.
-            </h1>
-<p class="max-w-xl text-white font-bold text-xl uppercase tracking-wide mb-12 leading-tight opacity-0 animate-fade-in [animation-delay:0.4s] [animation-fill-mode:forwards]">
-                From Identity to Everyday. We turn vision and creativity into high-end merchandise that reflects your brand ethos.
-            </p>
-<div class="flex gap-4 opacity-0 animate-fade-in [animation-delay:0.6s] [animation-fill-mode:forwards]">
-<button class="bg-secondary text-black border-6 border-black font-display text-2xl px-12 py-6 uppercase hover:bg-white transition-all shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-1 active:translate-y-1">
-                    CUSTOMIZE YOUR STORY
-                </button>
-</div>
-</div>
-<div class="col-span-12 lg:col-span-5 relative animate-scale-in">
-<div class="w-full aspect-[4/5] overflow-hidden brutalist-border shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] bg-black">
-<img alt="High-end model portrait" class="w-full h-full object-cover grayscale brightness-75 transition-all duration-1000 hover:grayscale-0 hover:brightness-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkTbcGURwVrjWdqdJXPzih4D2yfk7BeaGdM3R3BjFGRgxAtjerKGKquM42HTm7VII5akUoZRT6OAVHzxM5CbYA0vJjkUMxedmTJcP18fcddkr3ehWL4_KWZ4lK2IIq7Tcn657Hyc3tikvaKX8DWu0h1PxorZb0Vtz2s6nFmcan5He5PkPNqrcUuoSpIDasRakSsCjOvFOuzrEx2IgMMnCW1bGW16xtGvzo79x9L3ldMOUwgYBMqsGPBuFH0SY1lW4k5RDxfKsU-Wk"/>
-</div>
-</div>
-</div>
-</header>
-<section class="py-12 bg-white border-b-6 border-black overflow-hidden relative">
-<div class="flex animate-ticker whitespace-nowrap border-y-6 border-black bg-primary text-white font-display text-5xl uppercase py-6">
-<div class="flex gap-16 px-8">
-<span>Corporate gifting</span><span class="text-secondary">/</span>
-<span>Mongol Bo'kh</span><span class="text-secondary">/</span>
-<span>Clothes</span><span class="text-secondary">/</span>
-<span>Employee Onboarding</span><span class="text-secondary">/</span>
-<span>Saraa</span><span class="text-secondary">/</span>
-<span>Drinkware</span><span class="text-secondary">/</span>
-<span>Events</span><span class="text-secondary">/</span>
-</div>
-<div class="flex gap-16 px-8">
-<span>Corporate gifting</span><span class="text-secondary">/</span>
-<span>Mongol Bo'kh</span><span class="text-secondary">/</span>
-<span>Clothes</span><span class="text-secondary">/</span>
-<span>Employee Onboarding</span><span class="text-secondary">/</span>
-<span>Saraa</span><span class="text-secondary">/</span>
-<span>Drinkware</span><span class="text-secondary">/</span>
-<span>Events</span><span class="text-secondary">/</span>
-</div>
-</div>
-</section>
-<section class="py-32 bg-white border-b-6 border-black">
-<div class="max-w-[1440px] mx-auto px-6">
-<div class="mb-24">
-<h2 class="font-display text-8xl md:text-[12rem] uppercase aggressive-type mb-4 tracking-tighter">POPULAR <span class="text-primary">CORE</span></h2>
-<p class="font-brutal text-2xl uppercase font-black tracking-widest text-primary">Industry standards. Redefined.</p>
-</div>
-<div class="editorial-grid">
-<div class="col-span-12 h-[80vh] category-card group bg-black relative">
-<div class="absolute inset-0 z-0 parallax-bg opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDkTbcGURwVrjWdqdJXPzih4D2yfk7BeaGdM3R3BjFGRgxAtjerKGKquM42HTm7VII5akUoZRT6OAVHzxM5CbYA0vJjkUMxedmTJcP18fcddkr3ehWL4_KWZ4lK2IIq7Tcn657Hyc3tikvaKX8DWu0h1PxorZb0Vtz2s6nFmcan5He5PkPNqrcUuoSpIDasRakSsCjOvFOuzrEx2IgMMnCW1bGW16xtGvzo79x9L3ldMOUwgYBMqsGPBuFH0SY1lW4k5RDxfKsU-Wk');"></div>
-<div class="absolute inset-0 z-10 bg-gradient-to-t from-black/80 to-transparent"></div>
-<div class="absolute inset-0 z-20 flex flex-col justify-end p-12 md:p-24">
-<h3 class="font-display text-8xl md:text-[14rem] text-secondary aggressive-type uppercase transition-all duration-700 -translate-x-10 group-hover:translate-x-0 group-hover:scale-105">
-                        CORPORATE<br/>GIFTING
-                    </h3>
-<div class="mt-8 flex items-center gap-6">
-<span class="h-1 w-24 bg-secondary"></span>
-<span class="text-secondary font-brutal text-xl uppercase tracking-[0.4em]">The Elite Collection</span>
-</div>
-</div>
-<div class="absolute top-12 right-12 z-20 bg-primary text-white border-6 border-black px-8 py-4 font-display text-3xl -rotate-12 transition-transform group-hover:rotate-0">
-                    FEATURED 01
+<body>
+    <div class="container">
+        <!-- Үндсэн цэс -->
+        <div id="screen-main" class="screen active">
+            <h1>🕵️ Undercover Тоглоом</h1>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">22</div>
+                    <div class="stat-label">Үгийн сан</div>
                 </div>
-</div>
-<div class="col-span-12 lg:col-span-7 h-[700px] category-card group bg-black">
-<img alt="Mongol Bo'kh" class="w-full h-full object-cover grayscale opacity-70 group-hover:grayscale-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-NO7gpjoqwPX_3FQYDOoaTQUmBLomidzUQZFIt5vFioY1RQx0AMk7c0jn2WqSSzKdhL_35uk4eUKGONRsMKdmViJauR9_Qz18VKkq5eT_Gsp1WOd8ZcghwQ_99kN7ELVsTKJLjK22kqMOfYRm1tKjZwOi4J8Jt5DY9Gy7aKiUQ6SP9GVlb1DfWmnck3YqoAxOgO2GcOhsM29JipevsYXA-jD6hmLRDft6FQsGjhyafXuGnmEpOkwoNpMXs5O4mi-4y-hu2LJTMh0"/>
-<div class="absolute inset-0 z-20 p-12 flex flex-col justify-start">
-<h3 class="font-display text-9xl text-secondary aggressive-type uppercase -mt-10 group-hover:-translate-y-4 transition-transform duration-700">
-                        MONGOL<br/>BO'KH
-                    </h3>
-</div>
-<div class="absolute bottom-12 right-12 z-20">
-<span class="text-secondary font-display text-3xl border-b-6 border-secondary">EST. LEGACY</span>
-</div>
-</div>
-<div class="col-span-12 lg:col-span-5 h-[700px] category-card group bg-white">
-<img alt="Clothes" class="w-full h-full object-cover grayscale group-hover:grayscale-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_UEg4pfAJT3tEUTiIBGkK1RBqJQKg9miSIh24bA1xxq0nWWaojgz_uPAiCNNDz2bcnxuCrf9b-NOXx6Lc52eWKNeHDryQ9Y1BxCFRPFCuSw3HnqYE7ueDm78yDu8qLlYXDUwtNIdIYq2I39kxhmE2uz4m8mht-UPGlYtN9ldf6sghi6tdChMh-TpYxTssKO4IJSYsXM3zuJ6-0e6nPJ5VwTlldkLLRQckPiKuC2KiLbyttesHV3r-IT07tsaQGlcQCCPTQ45B3NE"/>
-<div class="absolute inset-0 z-20 flex items-center justify-center">
-<h3 class="font-display text-[10rem] text-primary aggressive-type uppercase rotate-90 group-hover:rotate-0 transition-all duration-1000">
-                        CLOTHES
-                    </h3>
-</div>
-</div>
-<div class="col-span-12 lg:col-span-4 h-[400px] flex items-center justify-center p-8 border-6 border-black bg-secondary group hover:bg-black transition-colors duration-500">
-<a class="flex flex-col items-center gap-6 text-center" href="#">
-<span class="font-display text-6xl uppercase leading-none group-hover:text-white transition-colors">VIEW ALL<br/>CATEGORIES</span>
-<span class="material-symbols-outlined text-7xl group-hover:translate-x-4 group-hover:text-primary transition-all">east</span>
-</a>
-</div>
-<div class="col-span-12 lg:col-span-8 h-[400px] category-card group bg-primary">
-<img alt="Employee Onboarding" class="w-full h-full object-cover grayscale group-hover:grayscale-0 mix-blend-multiply opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9uF16F1tQzX6HBSkrvaLCmuAtBjh0SP-W7E6SDhHcxhEgbZvO8VOmB-W-TrTrE_H09JUQ1Q5NggvploXOhWVH_XWp_WAxj4EEDRRnCg_-tu70kSmjsyfHC_2GHspA64biyS1it8rEQlgjKNLIgBd7VAqSgAe4YZ2c9X3clABQzYwenWNpnCDKiquf75Ch5CrFf3l9EB3d7YlTuQzUfEhidlrhFvozgNjXdxDpOjwybmxbXxJXer-j3NqDLCqnLEcSK0LN1XbbUvY"/>
-<div class="absolute inset-0 z-20 flex items-center p-12">
-<h3 class="font-display text-8xl text-secondary aggressive-type uppercase group-hover:tracking-[0.05em] transition-all duration-700">
-                        EMPLOYEE<br/>ONBOARDING
-                    </h3>
-</div>
-</div>
-<div class="col-span-12 lg:col-span-6 h-[600px] category-card group bg-black">
-<img alt="Saraa" class="w-full h-full object-cover grayscale opacity-70 group-hover:grayscale-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkTbcGURwVrjWdqdJXPzih4D2yfk7BeaGdM3R3BjFGRgxAtjerKGKquM42HTm7VII5akUoZRT6OAVHzxM5CbYA0vJjkUMxedmTJcP18fcddkr3ehWL4_KWZ4lK2IIq7Tcn657Hyc3tikvaKX8DWu0h1PxorZb0Vtz2s6nFmcan5He5PkPNqrcUuoSpIDasRakSsCjOvFOuzrEx2IgMMnCW1bGW16xtGvzo79x9L3ldMOUwgYBMqsGPBuFH0SY1lW4k5RDxfKsU-Wk"/>
-<div class="absolute bottom-12 left-12 z-20">
-<h3 class="font-display text-[12rem] text-secondary aggressive-type uppercase -mb-10 group-hover:-translate-y-6 transition-transform">
-                        SARAA
-                    </h3>
-</div>
-</div>
-<div class="col-span-12 lg:col-span-6 h-[600px] category-card group bg-white">
-<img alt="Drinkware" class="w-full h-full object-cover grayscale group-hover:grayscale-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9uF16F1tQzX6HBSkrvaLCmuAtBjh0SP-W7E6SDhHcxhEgbZvO8VOmB-W-TrTrE_H09JUQ1Q5NggvploXOhWVH_XWp_WAxj4EEDRRnCg_-tu70kSmjsyfHC_2GHspA64biyS1it8rEQlgjKNLIgBd7VAqSgAe4YZ2c9X3clABQzYwenWNpnCDKiquf75Ch5CrFf3l9EB3d7YlTuQzUfEhidlrhFvozgNjXdxDpOjwybmxbXxJXer-j3NqDLCqnLEcSK0LN1XbbUvY"/>
-<div class="absolute inset-0 z-20 flex flex-col justify-end p-12">
-<h3 class="font-display text-8xl text-primary aggressive-type uppercase text-right leading-[0.85] group-hover:scale-110 transition-transform">
-                        PREMIUM<br/>DRINKWARE
-                    </h3>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section class="py-24 bg-neutral-100 border-b-6 border-black overflow-hidden">
-<div class="max-w-[1440px] mx-auto px-6">
-<h2 class="font-display text-5xl uppercase mb-16 tracking-tighter">GLOBAL ALLIANCES</h2>
-<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
-<div class="h-32 bg-white border-6 border-black flex items-center justify-center font-display text-3xl uppercase grayscale hover:grayscale-0 transition-all duration-500 cursor-pointer opacity-0 animate-fade-in [animation-delay:0.1s] [animation-fill-mode:forwards]">Buh</div>
-<div class="h-32 bg-white border-6 border-black flex items-center justify-center font-display text-3xl uppercase grayscale hover:grayscale-0 transition-all duration-500 cursor-pointer opacity-0 animate-fade-in [animation-delay:0.2s] [animation-fill-mode:forwards]">Event</div>
-<div class="h-32 bg-white border-6 border-black flex items-center justify-center font-display text-3xl uppercase grayscale hover:grayscale-0 transition-all duration-500 cursor-pointer opacity-0 animate-fade-in [animation-delay:0.3s] [animation-fill-mode:forwards]">Corp Kit</div>
-<div class="h-32 bg-white border-6 border-black flex items-center justify-center font-display text-3xl uppercase grayscale hover:grayscale-0 transition-all duration-500 cursor-pointer opacity-0 animate-fade-in [animation-delay:0.4s] [animation-fill-mode:forwards]">People</div>
-<div class="h-32 bg-white border-6 border-black flex items-center justify-center font-display text-3xl uppercase grayscale hover:grayscale-0 transition-all duration-500 cursor-pointer opacity-0 animate-fade-in [animation-delay:0.5s] [animation-fill-mode:forwards]">Thunder</div>
-<div class="h-32 bg-white border-6 border-black flex items-center justify-center font-display text-3xl uppercase grayscale hover:grayscale-0 transition-all duration-500 cursor-pointer opacity-0 animate-fade-in [animation-delay:0.6s] [animation-fill-mode:forwards]">Homesaraa</div>
-</div>
-</div>
-</section>
-<section class="py-32 bg-secondary border-b-6 border-black">
-<div class="max-w-[1440px] mx-auto px-6">
-<h2 class="font-display text-7xl uppercase mb-20 tracking-tighter text-black">THE METHODOLOGY</h2>
-<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-<div class="bg-black text-white p-12 border-6 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,0.5)] space-y-10 group transition-all duration-700 hover:-translate-y-4 hover:rotate-2">
-<div class="font-display text-7xl text-secondary transition-transform group-hover:scale-125">01</div>
-<div class="space-y-4">
-<h4 class="font-display text-4xl uppercase">ENGAGE</h4>
-<p class="text-base font-bold uppercase leading-relaxed tracking-wider text-neutral-400">Defining vision and strategic alignment.</p>
-</div>
-</div>
-<div class="bg-primary text-white p-12 border-6 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,0.5)] space-y-10 group transition-all duration-700 hover:-translate-y-4 hover:-rotate-2">
-<div class="font-display text-7xl text-white transition-transform group-hover:scale-125">02</div>
-<div class="space-y-4">
-<h4 class="font-display text-4xl uppercase">RESEARCH</h4>
-<p class="text-base font-bold uppercase leading-relaxed tracking-wider text-white/80">Market depth and material sourcing.</p>
-</div>
-</div>
-<div class="bg-white text-black p-12 border-6 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,0.5)] space-y-10 group transition-all duration-700 hover:-translate-y-4 hover:rotate-2">
-<div class="font-display text-7xl text-primary transition-transform group-hover:scale-125">03</div>
-<div class="space-y-4">
-<h4 class="font-display text-4xl uppercase">DESIGN</h4>
-<p class="text-base font-bold uppercase leading-relaxed tracking-wider text-neutral-600">Bespoke digital prototyping labs.</p>
-</div>
-</div>
-<div class="bg-black text-white p-12 border-6 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,0.5)] space-y-10 group transition-all duration-700 hover:-translate-y-4 hover:-rotate-2">
-<div class="font-display text-7xl text-primary transition-transform group-hover:scale-125">04</div>
-<div class="space-y-4">
-<h4 class="font-display text-4xl uppercase">CREATE</h4>
-<p class="text-base font-bold uppercase leading-relaxed tracking-wider text-neutral-400">Global mass distribution systems.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section class="py-32 bg-secondary border-b-6 border-black">
-<div class="max-w-[1440px] mx-auto px-6">
-<h2 class="font-display text-7xl uppercase mb-20 tracking-tighter text-black">CORE PROMISES</h2>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-<div class="bg-white border-6 border-black p-12 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-3 transition-all group overflow-hidden">
-<div class="animate-float mb-10">
-<span class="material-symbols-outlined text-black text-7xl">verified</span>
-</div>
-<h4 class="font-display text-4xl uppercase mb-6">Quality</h4>
-<p class="text-base text-black font-bold uppercase leading-relaxed opacity-0 group-hover:opacity-100 transition-all duration-700 translate-y-8 group-hover:translate-y-0">Premium fabrics and rigorous testing protocols for every piece.</p>
-</div>
-<div class="bg-white border-6 border-black p-12 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-3 transition-all group overflow-hidden">
-<div class="animate-float mb-10 [animation-delay:0.5s]">
-<span class="material-symbols-outlined text-black text-7xl">handshake</span>
-</div>
-<h4 class="font-display text-4xl uppercase mb-6">Customer</h4>
-<p class="text-base text-black font-bold uppercase leading-relaxed opacity-0 group-hover:opacity-100 transition-all duration-700 translate-y-8 group-hover:translate-y-0">Long-term brand success is our driving force.</p>
-</div>
-<div class="bg-white border-6 border-black p-12 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-3 transition-all group overflow-hidden">
-<div class="animate-float mb-10 [animation-delay:1s]">
-<span class="material-symbols-outlined text-black text-7xl">bolt</span>
-</div>
-<h4 class="font-display text-4xl uppercase mb-6">Innovation</h4>
-<p class="text-base text-black font-bold uppercase leading-relaxed opacity-0 group-hover:opacity-100 transition-all duration-700 translate-y-8 group-hover:translate-y-0">Continuous improvement in our design labs.</p>
-</div>
-<div class="bg-white border-6 border-black p-12 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-3 transition-all group overflow-hidden">
-<div class="animate-float mb-10 [animation-delay:1.5s]">
-<span class="material-symbols-outlined text-black text-7xl">gavel</span>
-</div>
-<h4 class="font-display text-4xl uppercase mb-6">Ethics</h4>
-<p class="text-base text-black font-bold uppercase leading-relaxed opacity-0 group-hover:opacity-100 transition-all duration-700 translate-y-8 group-hover:translate-y-0">Transparent supply chains and high integrity standards.</p>
-</div>
-</div>
-</div>
-</section>
-<footer class="bg-white py-24 border-t-6 border-black">
-<div class="max-w-[1440px] mx-auto px-6">
-<div class="grid grid-cols-1 md:grid-cols-4 gap-16 mb-24">
-<div class="col-span-1 md:col-span-1">
-<span class="font-display text-5xl tracking-tighter mb-10 block uppercase">MERCH<span class="text-primary">.</span>CORP</span>
-<p class="text-sm font-black uppercase tracking-[0.2em] leading-loose mb-10">
-                    1024 INDUSTRIAL BLVD.<br/>
-                    SYSTEM SECTOR 04<br/>
-                    GLOBAL HUB
-                </p>
-<div class="flex gap-6">
-<a class="w-16 h-16 border-6 border-black flex items-center justify-center hover:bg-primary hover:text-white transition-all" href="#">
-<span class="material-symbols-outlined text-3xl">share</span>
-</a>
-<a class="w-16 h-16 border-6 border-black flex items-center justify-center hover:bg-secondary hover:text-black transition-all" href="#">
-<span class="material-symbols-outlined text-3xl">play_arrow</span>
-</a>
-</div>
-</div>
-<div>
-<h5 class="font-display text-2xl uppercase tracking-[0.2em] mb-8 border-b-6 border-black inline-block">Service</h5>
-<ul class="space-y-4 text-sm font-black uppercase tracking-widest">
-<li><a class="hover:text-primary transition-colors" href="#">Custom Apparel</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Design Lab</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Logistics</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Bespoke Sourcing</a></li>
-</ul>
-</div>
-<div>
-<h5 class="font-display text-2xl uppercase tracking-[0.2em] mb-8 border-b-6 border-black inline-block">Support</h5>
-<ul class="space-y-4 text-sm font-black uppercase tracking-widest">
-<li><a class="hover:text-primary transition-colors" href="#">Account</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Orders</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Project Tracker</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Contact</a></li>
-</ul>
-</div>
-<div>
-<h5 class="font-display text-2xl uppercase tracking-[0.2em] mb-8 border-b-6 border-black inline-block">Mission</h5>
-<ul class="space-y-4 text-sm font-black uppercase tracking-widest">
-<li><a class="hover:text-primary transition-colors" href="#">Corporate Merch</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Employee Kits</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Event Supplies</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Brand Strategy</a></li>
-</ul>
-</div>
-</div>
-<div class="flex flex-col md:flex-row justify-between items-center gap-10 pt-10 border-t-6 border-black text-sm font-black uppercase tracking-widest">
-<p>© 2024 MERCH.CORP - YOUR STORY. YOUR VISION. YOUR MERCH.</p>
-<div class="flex gap-10 uppercase tracking-[0.4em]">
-<span>Privacy</span>
-<span>Terms</span>
-<span class="bg-black text-white px-3 py-1">V.04</span>
-</div>
-</div>
-</div>
-</footer>
+            </div>
 
-</body></html>
+            <button class="btn btn-success" onclick="showScreen('screen-players')">🎮 Тоглоом эхлүүлэх</button>
+        </div>
+
+        <!-- Тоглогч оруулах -->
+        <div id="screen-players" class="screen">
+            <h1>🎮 Тоглогчдын нэр оруулах</h1>
+            
+            <div class="quick-add">
+                <input type="text" id="playerName" placeholder="Тоглогчийн нэр...">
+                <button class="btn" onclick="addPlayer()">Нэмэх</button>
+            </div>
+
+            <div class="game-info">
+                <p><strong>Тоглогчид:</strong> <span id="playerCount">0</span></p>
+            </div>
+
+            <div class="member-list" id="playerList"></div>
+
+            <button class="btn btn-success" onclick="goToSettings()" id="continueBtn" style="display: none;">Үргэлжлүүлэх</button>
+            <button class="btn btn-secondary" onclick="showScreen('screen-main')">Буцах</button>
+        </div>
+
+        <!-- Тохиргоо -->
+        <div id="screen-settings" class="screen">
+            <h1>⚙️ Тохиргоо</h1>
+            
+            <div class="game-info">
+                <p><strong>Тоглогчид:</strong> <span id="gamePlayers">0</span></p>
+            </div>
+
+            <div class="input-group">
+                <label for="undercoverCount">Undercover тоглогчийн тоо:</label>
+                <input type="number" id="undercoverCount" min="1" value="1">
+            </div>
+
+            <div class="input-group">
+                <label for="mrWhiteCount">Mr. White тоглогчийн тоо:</label>
+                <input type="number" id="mrWhiteCount" min="0" value="0">
+            </div>
+
+            <button class="btn" onclick="startGame()">Тоглоом эхлүүлэх</button>
+            <button class="btn btn-secondary" onclick="showScreen('screen-players')">Буцах</button>
+        </div>
+
+        <!-- Үг харуулах дэлгэц -->
+        <div id="screen-word" class="screen">
+            <h1>🎮 Тоглоом явагдаж байна</h1>
+            
+            <div class="player-turn" id="currentPlayer"></div>
+            
+            <div class="word-card hidden" id="wordCard" onclick="revealWord()">
+                <h2>👆 Дарж үгээ харна уу</h2>
+                <p>Бусад хүмүүс харахгүй байхыг анхаарна уу!</p>
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn" onclick="nextPlayer()" id="nextBtn" style="display: none;">Дараагийн тоглогч</button>
+                <button class="btn btn-secondary" onclick="finishGame()">Тоглоом дуусгах</button>
+            </div>
+        </div>
+
+        <!-- Дүн харуулах дэлгэц -->
+        <div id="screen-results" class="screen">
+            <h1>📊 Тоглоомын дүн</h1>
+            
+            <div id="resultsContent"></div>
+
+            <button class="btn" onclick="playAgain()">Дахин тоглох</button>
+            <button class="btn btn-secondary" onclick="showScreen('screen-main')">Үндсэн цэс</button>
+        </div>
+    </div>
+
+    <script>
+        // Үгийн сан (22 үг)
+        const wordBank = [
+            'Baasanjargal Otgonbayr',
+            'Anar Chinbat',
+            'Ankhaa Ankhbayr',
+            'Anujin Davaadorj',
+            'Ariunjargal Tse',
+            'Ulziijargal Battvshin',
+            'Chingaral Gantumur',
+            'Hatake Tergel',
+            'Dolugeno',
+            'Gan Od',
+            'Gangan Togs',
+            'Javkhaa Ariunbold',
+            'Tsend Ulambayar',
+            'Maralgoo Ganbulgan',
+            'Munkhaldar Otgontur',
+            'Nomuka',
+            'Orgil',
+            'Sanchirmaa Bukhbold',
+            'Soko',
+            'Teshka Sama',
+            'Guldur',
+            'Trjvkhln'
+        ];
+
+        let players = [];
+        let currentPlayerIndex = 0;
+        let gameData = null;
+
+        // Тоглогч нэмэх
+        function addPlayer() {
+            const input = document.getElementById('playerName');
+            const name = input.value.trim();
+            
+            if (name === '') {
+                alert('Нэрээ оруулна уу!');
+                return;
+            }
+
+            if (players.includes(name)) {
+                alert('Энэ нэр аль хэдийн байна!');
+                return;
+            }
+
+            players.push(name);
+            input.value = '';
+            updatePlayerList();
+        }
+
+        // Тоглогчдын жагсаалт шинэчлэх
+        function updatePlayerList() {
+            const list = document.getElementById('playerList');
+            const countElement = document.getElementById('playerCount');
+            const continueBtn = document.getElementById('continueBtn');
+            
+            countElement.textContent = players.length;
+
+            if (players.length === 0) {
+                list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">🎮</div><p>Тоглогчдын нэр оруулна уу</p></div>';
+                continueBtn.style.display = 'none';
+                return;
+            }
+
+            list.innerHTML = players.map((name, index) => `
+                <div class="member-item">
+                    <span class="member-name">${index + 1}. ${name}</span>
+                    <button class="remove-btn" onclick="removePlayer(${index})">Устгах</button>
+                </div>
+            `).join('');
+
+            continueBtn.style.display = 'block';
+        }
+
+        // Тоглогч устгах
+        function removePlayer(index) {
+            players.splice(index, 1);
+            updatePlayerList();
+        }
+
+        // Тохиргоо руу шилжих
+        function goToSettings() {
+            if (players.length < 3) {
+                alert('Хамгийн багадаа 3 тоглогч шаардлагатай!');
+                return;
+            }
+
+            document.getElementById('gamePlayers').textContent = players.length;
+            showScreen('screen-settings');
+        }
+
+        // Тоглоом эхлүүлэх
+        function startGame() {
+            const undercoverCount = parseInt(document.getElementById('undercoverCount').value);
+            const mrWhiteCount = parseInt(document.getElementById('mrWhiteCount').value);
+
+            if (undercoverCount + mrWhiteCount >= players.length) {
+                alert('Undercover болон Mr. White тоглогчдын нийлбэр нийт тоглогчоос бага байх ёстой!');
+                return;
+            }
+
+            // Үгийн сангаас санамсаргүй 2 үг сонгох (Civilian ба Undercover-д)
+            const shuffledWords = [...wordBank].sort(() => Math.random() - 0.5);
+            const civilianWord = shuffledWords[0];
+            const undercoverWord = shuffledWords[1];
+
+            // Дүрүүдийг санамсаргүй байдлаар хуваарилах
+            const roles = [];
+            for (let i = 0; i < undercoverCount; i++) roles.push('undercover');
+            for (let i = 0; i < mrWhiteCount; i++) roles.push('mrwhite');
+            for (let i = 0; i < players.length - undercoverCount - mrWhiteCount; i++) roles.push('civilian');
+
+            // Холих
+            for (let i = roles.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [roles[i], roles[j]] = [roles[j], roles[i]];
+            }
+
+            gameData = {
+                players: players.map((name, index) => ({
+                    name: name,
+                    role: roles[index],
+                    word: roles[index] === 'civilian' ? civilianWord : 
+                          roles[index] === 'undercover' ? undercoverWord : null
+                })),
+                civilianWord: civilianWord,
+                undercoverWord: undercoverWord
+            };
+
+            currentPlayerIndex = 0;
+            showNextPlayer();
+            showScreen('screen-word');
+        }
+
+        // Дараагийн тоглогч харуулах
+        function showNextPlayer() {
+            const player = gameData.players[currentPlayerIndex];
+            document.getElementById('currentPlayer').textContent = 
+                `Тоглогч: ${player.name} (${currentPlayerIndex + 1}/${gameData.players.length})`;
+            
+            const card = document.getElementById('wordCard');
+            card.classList.add('hidden');
+            card.innerHTML = '<h2>👆 Дарж үгээ харна уу</h2><p>Бусад хүмүүс харахгүй байхыг анхаарна уу!</p>';
+            
+            document.getElementById('nextBtn').style.display = 'none';
+        }
+
+        // Үг харуулах
+        function revealWord() {
+            const card = document.getElementById('wordCard');
+            if (!card.classList.contains('hidden')) return;
+
+            const player = gameData.players[currentPlayerIndex];
+            card.classList.remove('hidden');
+
+            if (player.role === 'civilian') {
+                card.style.background = 'linear-gradient(135deg, #48dbfb 0%, #0abde3 100%)';
+                card.innerHTML = `
+                    <h2>${player.word}</h2>
+                    <span class="role-badge role-civilian">Энгийн тоглогч</span>
+                `;
+            } else if (player.role === 'undercover') {
+                card.style.background = 'linear-gradient(135deg, #ff6348 0%, #ff4757 100%)';
+                card.innerHTML = `
+                    <h2>${player.word}</h2>
+                    <span class="role-badge role-undercover">Undercover</span>
+                `;
+            } else {
+                card.style.background = 'linear-gradient(135deg, #2c3e50 0%, #34495e 100%)';
+                card.innerHTML = `
+                    <h2>❓</h2>
+                    <p>Та ямар ч үг мэдэхгүй байна</p>
+                    <span class="role-badge role-mrwhite">Mr. White</span>
+                `;
+            }
+
+            document.getElementById('nextBtn').style.display = 'block';
+        }
+
+        // Дараагийн тоглогч руу шилжих
+        function nextPlayer() {
+            currentPlayerIndex++;
+            if (currentPlayerIndex >= gameData.players.length) {
+                finishGame();
+            } else {
+                showNextPlayer();
+            }
+        }
+
+        // Тоглоом дуусгах
+        function finishGame() {
+            const content = document.getElementById('resultsContent');
+            
+            content.innerHTML = `
+                <div class="game-info">
+                    <p><strong>Энгийн тоглогчдын үг:</strong> ${gameData.civilianWord}</p>
+                    <p><strong>Undercover тоглогчдын үг:</strong> ${gameData.undercoverWord}</p>
+                </div>
+                ${gameData.players.map(player => `
+                    <div class="member-item">
+                        <div>
+                            <div class="member-name">${player.name}</div>
+                            ${player.role === 'civilian' ? '<span class="role-badge role-civilian">Энгийн тоглогч</span>' : ''}
+                            ${player.role === 'undercover' ? '<span class="role-badge role-undercover">Undercover</span>' : ''}
+                            ${player.role === 'mrwhite' ? '<span class="role-badge role-mrwhite">Mr. White</span>' : ''}
+                        </div>
+                    </div>
+                `).join('')}
+            `;
+
+            showScreen('screen-results');
+        }
+
+        // Дахин тоглох
+        function playAgain() {
+            players = [];
+            gameData = null;
+            currentPlayerIndex = 0;
+            showScreen('screen-main');
+        }
+
+        // Дэлгэц солих
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+
+            // Тоглогч оруулах дэлгэц рүү орохдоо шинэчлэх
+            if (screenId === 'screen-players') {
+                updatePlayerList();
+            }
+        }
+    </script>
+</body>
+</html>
